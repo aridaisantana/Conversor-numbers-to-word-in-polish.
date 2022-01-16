@@ -7,14 +7,44 @@ namespace ConvertNumberIntoWords
     {
 
         private string inputNumber;
-        private int iterations = 0;
+        private int gMagnitude = -1;
 
         public StringIterator(string number)
         {
             inputNumber = number;
         }
 
-    
+        public int getConjugation()
+        {
+            if (inputNumber.Length != 0)
+            {
+                if (inputNumber.Length == 1)
+                {
+                    int number = int.Parse(inputNumber);
+                    if (number == 1)
+                    {
+                        return 0;
+                    }
+                    else if (number >= 2 && number <= 4)
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return 2;
+                    }
+                }
+                else
+                {
+                    return 2;
+                }
+
+                
+            }
+            return 0;
+          
+        }
+
         public string Next()
         {
             if(inputNumber.Length == 0) return "";
@@ -43,6 +73,16 @@ namespace ConvertNumberIntoWords
         public string getInputNumber()
         {
             return inputNumber;
+        }
+
+        public void incrementGMagnitude()
+        {
+            gMagnitude++;
+        }
+
+        public int getGMagnitude()
+        {
+            return gMagnitude;
         }
     }
 }

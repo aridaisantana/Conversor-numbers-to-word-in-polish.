@@ -53,6 +53,7 @@ namespace ConvertNumberIntoWords
                 try
                 {
                     number = int.Parse(iterator.Next());
+                    iterator.incrementGMagnitude();
                 }
                 catch (Exception ex)
                 {
@@ -63,11 +64,9 @@ namespace ConvertNumberIntoWords
                 int dTens = 0;
                 int jSingles = 0;
                 int nTeens = 0;
-                int gMagnitude = 0;
-                int kConjugation = 0;
 
 
-                while (number != 0)
+                if (number != 0)
                 {
                     sHundreds = (number % 1000) / 100;
                     dTens = (number % 100) / 10;
@@ -85,34 +84,19 @@ namespace ConvertNumberIntoWords
                         nTeens = 0;
                     }
 
-                    //choose conjugation form
-                    if (jSingles == 1 && sHundreds + dTens + nTeens == 0)
-                    {
-                        kConjugation = 0;
-                    }
-                    else if (jSingles >= 2 && jSingles <= 4)
-                    {
-                        kConjugation = 1;
-                    }
-                    else
-                    {
-                        kConjugation = 2;
-                    }
-
+                  
                     //add text if there is any houndred, ten, teen or single
                     if (sHundreds + dTens + nTeens + jSingles > 0)
                     {
-                        if (sHundreds + dTens + nTeens == 0 && jSingles == 1 && !String.IsNullOrWhiteSpace(CONJUGATIONS[gMagnitude, kConjugation]))
+                        if (sHundreds + dTens + nTeens == 0 && jSingles == 1 && !String.IsNullOrWhiteSpace(CONJUGATIONS[iterator.getGMagnitude(), iterator.getConjugation()]))
                         {
                             // we do not say 'jeden tysiąc' but 'tysiąc'
                             jSingles = 0;
                         }
-                        groups.Add(string.Format(" {0} {1} {2} {3} {4}", HUNDREDS[sHundreds], TENS[dTens], TEENS[nTeens], SINGLES[jSingles], CONJUGATIONS[gMagnitude, kConjugation]));
+                        groups.Add(string.Format(" {0} {1} {2} {3} {4}", HUNDREDS[sHundreds], TENS[dTens], TEENS[nTeens], SINGLES[jSingles], CONJUGATIONS[iterator.getGMagnitude(), iterator.getConjugation()]));
                     }
 
                     //process next three digits
-                    gMagnitude++;
-                    number = number / 1000;
 
                 }
 
@@ -132,9 +116,15 @@ namespace ConvertNumberIntoWords
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+            Console.WriteLine(ConvertNumberIntoWords("1"));
             Console.WriteLine(ConvertNumberIntoWords("-23"));
             Console.WriteLine(ConvertNumberIntoWords("230"));
             Console.WriteLine(ConvertNumberIntoWords("2301"));
+            Console.WriteLine(ConvertNumberIntoWords("423010"));
+            Console.WriteLine(ConvertNumberIntoWords("1320435"));
+            Console.WriteLine(ConvertNumberIntoWords("12343"));
+            Console.WriteLine(ConvertNumberIntoWords("5390756"));
+
             
             
         }
