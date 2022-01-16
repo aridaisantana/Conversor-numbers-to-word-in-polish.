@@ -124,6 +124,9 @@ namespace ConvertNumberIntoWords
             Console.WriteLine(ConvertNumberIntoWords("1320435"));
             Console.WriteLine(ConvertNumberIntoWords("12343"));
             Console.WriteLine(ConvertNumberIntoWords("5390756"));
+            Console.WriteLine(ConvertNumberIntoWords("12340234"));
+            Console.WriteLine(ConvertNumberIntoWords("456789456"));
+            Console.WriteLine(ConvertNumberIntoWords("2340543567"));
 
             
             

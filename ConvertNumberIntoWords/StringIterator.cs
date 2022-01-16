@@ -8,6 +8,7 @@ namespace ConvertNumberIntoWords
 
         private string inputNumber;
         private int gMagnitude = -1;
+        private string lastDigits = "";
 
         public StringIterator(string number)
         {
@@ -16,11 +17,11 @@ namespace ConvertNumberIntoWords
 
         public int getConjugation()
         {
-            if (inputNumber.Length != 0)
+            if (lastDigits.Length != 0)
             {
-                if (inputNumber.Length == 1)
+                if (lastDigits.Length == 1)
                 {
-                    int number = int.Parse(inputNumber);
+                    int number = int.Parse(lastDigits);
                     if (number == 1)
                     {
                         return 0;
@@ -41,7 +42,7 @@ namespace ConvertNumberIntoWords
 
                 
             }
-            return 0;
+            return 2;
           
         }
 
@@ -58,11 +59,14 @@ namespace ConvertNumberIntoWords
             }
             else if (inputNumber.Length == 2){
                 result = inputNumber;
+                lastDigits = inputNumber;
                 inputNumber = "";
+                
 
             }
             else{
                 result = inputNumber;
+                lastDigits = inputNumber;
                 inputNumber = "";
             }
 
