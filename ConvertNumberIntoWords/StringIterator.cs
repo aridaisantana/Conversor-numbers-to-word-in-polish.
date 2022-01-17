@@ -7,43 +7,61 @@ namespace ConvertNumberIntoWords
     {
 
         private string inputNumber;
-        private int gMagnitude = -1;
+        private int gMagnitude = 0;
         private string lastDigits = "";
+        private int kConjugation = 0;
 
         public StringIterator(string number)
         {
             inputNumber = number;
         }
 
+        //ver folio
+        public void setConjugation()
+        {
+           
+            if (inputNumber.Length != 0)
+            {
+                if (inputNumber.Length <= 3)
+                {
+
+                    int jSingles = int.Parse(inputNumber) % 10;
+                    Console.WriteLine("Singles length <= 3:" + jSingles);
+
+                    kConjugation = setConjugationHelper(jSingles);
+                    Console.WriteLine("Conjugation:" + kConjugation);
+
+                }
+                else if (inputNumber.Length > 3)
+                {
+                    int jSingles = int.Parse(inputNumber.Substring(inputNumber.Length - 3)) % 10;
+                    Console.WriteLine("Singles length > 3:" + jSingles);
+                    kConjugation = setConjugationHelper(jSingles);
+                    Console.WriteLine("Conjugation:" + kConjugation);
+                }
+            }
+            
+        }
+
+        public int setConjugationHelper(int jSingles)
+        {
+            if (jSingles == 1)
+            {
+                return 0;
+            }
+            else if (jSingles >= 2 && jSingles <= 4)
+            {
+                return 1;
+            }
+            else
+            {
+                return 2;
+            }
+        }
+
         public int getConjugation()
         {
-            if (lastDigits.Length != 0)
-            {
-                if (lastDigits.Length == 1)
-                {
-                    int number = int.Parse(lastDigits);
-                    if (number == 1)
-                    {
-                        return 0;
-                    }
-                    else if (number >= 2 && number <= 4)
-                    {
-                        return 1;
-                    }
-                    else
-                    {
-                        return 2;
-                    }
-                }
-                else
-                {
-                    return 2;
-                }
-
-                
-            }
-            return 2;
-          
+            return kConjugation;
         }
 
         public string Next()
