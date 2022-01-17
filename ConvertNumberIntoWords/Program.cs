@@ -24,7 +24,9 @@ namespace ConvertNumberIntoWords
                 { "bilion" , "biliony" , "bilionow"    },
                 { "biliard", "biliardy", "biliardow"   },
                 { "trylion" , "tryliony", "trylionow" },
-                { "tryliard", "tryliardy", "tryliardow" }
+                { "tryliard", "tryliardy", "trylionow" },
+                { "kwadrylion", "kwadryliony", "kwadrylionow" },
+               
             };
 
         public static String ConvertNumberIntoWords(string input)
@@ -46,7 +48,6 @@ namespace ConvertNumberIntoWords
             List<string> groups = new List<string>();
 
             StringIterator iterator = new StringIterator(inputNumber);
-            bool noDigitsLeft = false;
 
             while (iterator.getInputNumber().Length > 0)
             {
@@ -88,14 +89,10 @@ namespace ConvertNumberIntoWords
                     //add text if there is any houndred, ten, teen or single
                     if (sHundreds + dTens + nTeens + jSingles > 0)
                     {
-                        Console.WriteLine("Conjugation inside method:" + iterator.getConjugation());
-                        Console.WriteLine("gMagnitude inside method:" + iterator.getGMagnitude());
-                        Console.WriteLine("Conjugation inside method:" + CONJUGATIONS[iterator.getGMagnitude(), iterator.getConjugation()]);
-
                         
                         if (sHundreds + dTens + nTeens == 0 && jSingles == 1 && !String.IsNullOrWhiteSpace(CONJUGATIONS[iterator.getGMagnitude(), iterator.getConjugation()]))
                         {
-                            // we do not say 'jeden tysiąc' but 'tysiąc'
+                            //do not say 'jeden tysiąc' but 'tysiąc'
                             jSingles = 0;
                         }
 
@@ -123,20 +120,19 @@ namespace ConvertNumberIntoWords
 
         static void Main(string[] args)
         {
-            //Console.WriteLine("Hello World!");
-            //Console.WriteLine("1º ->" + ConvertNumberIntoWords("1"));
-            //Console.WriteLine("2º->" +ConvertNumberIntoWords("-23"));
-            //Console.WriteLine("3º->" + ConvertNumberIntoWords("230"));
-            //Console.WriteLine("4º->" + ConvertNumberIntoWords("2301"));
-            //Console.WriteLine("5º->" + ConvertNumberIntoWords("423010"));
-            //Console.WriteLine("6º->" + ConvertNumberIntoWords("1320435"));
-            //Console.WriteLine("7º->" + ConvertNumberIntoWords("12343"));
-            //Console.WriteLine("8º->" + ConvertNumberIntoWords("5390756"));
-            //Console.WriteLine("9º->" + ConvertNumberIntoWords("12340234"));
-            //Console.WriteLine("10º->" + ConvertNumberIntoWords("456789456"));
-            //Console.WriteLine("11º->" + ConvertNumberIntoWords("2340543567"));
-            //Console.WriteLine("12º->" + ConvertNumberIntoWords("1000000000000000000000"));
-            //Console.WriteLine("13º->" + ConvertNumberIntoWords("7685768756568"));
+            Console.WriteLine("1º ->" + ConvertNumberIntoWords("1"));
+            Console.WriteLine("2º->" +ConvertNumberIntoWords("-23"));
+            Console.WriteLine("3º->" + ConvertNumberIntoWords("230"));
+            Console.WriteLine("4º->" + ConvertNumberIntoWords("2301"));
+            Console.WriteLine("5º->" + ConvertNumberIntoWords("423010"));
+            Console.WriteLine("6º->" + ConvertNumberIntoWords("1320435"));
+            Console.WriteLine("7º->" + ConvertNumberIntoWords("12343"));
+            Console.WriteLine("8º->" + ConvertNumberIntoWords("5390756"));
+            Console.WriteLine("9º->" + ConvertNumberIntoWords("12340234"));
+            Console.WriteLine("10º->" + ConvertNumberIntoWords("456789456"));
+            Console.WriteLine("11º->" + ConvertNumberIntoWords("2340543567"));
+            Console.WriteLine("12º->" + ConvertNumberIntoWords("1000000000000000000000"));
+            Console.WriteLine("13º->" + ConvertNumberIntoWords("7685768756568"));
             Console.WriteLine("13º->" + ConvertNumberIntoWords("587634876598654724"));
 
             

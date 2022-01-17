@@ -8,7 +8,6 @@ namespace ConvertNumberIntoWords
 
         private string inputNumber;
         private int gMagnitude = 0;
-        private string lastDigits = "";
         private int kConjugation = 0;
 
         public StringIterator(string number)
@@ -16,7 +15,6 @@ namespace ConvertNumberIntoWords
             inputNumber = number;
         }
 
-        //ver folio
         public void setConjugation()
         {
            
@@ -26,18 +24,13 @@ namespace ConvertNumberIntoWords
                 {
 
                     int jSingles = int.Parse(inputNumber) % 10;
-                    Console.WriteLine("Singles length <= 3:" + jSingles);
-
                     kConjugation = setConjugationHelper(jSingles);
-                    Console.WriteLine("Conjugation:" + kConjugation);
 
                 }
                 else if (inputNumber.Length > 3)
                 {
                     int jSingles = int.Parse(inputNumber.Substring(inputNumber.Length - 3)) % 10;
-                    Console.WriteLine("Singles length > 3:" + jSingles);
                     kConjugation = setConjugationHelper(jSingles);
-                    Console.WriteLine("Conjugation:" + kConjugation);
                 }
             }
             
@@ -75,19 +68,12 @@ namespace ConvertNumberIntoWords
                 result = inputNumber.Substring(inputNumber.Length - 3);
                 inputNumber = inputNumber.Substring(0, inputNumber.Length - 3);
             }
-            else if (inputNumber.Length == 2){
+            else
+            {
                 result = inputNumber;
-                lastDigits = inputNumber;
-                inputNumber = "";
-                
-
-            }
-            else{
-                result = inputNumber;
-                lastDigits = inputNumber;
                 inputNumber = "";
             }
-
+              
             return result;
             
         }
