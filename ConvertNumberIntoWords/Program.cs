@@ -24,8 +24,49 @@ namespace ConvertNumberIntoWords
                 { "bilion" , "biliony" , "bilionow"    },
                 { "biliard", "biliardy", "biliardow"   },
                 { "trylion" , "tryliony", "trylionow" },
-                { "tryliard", "tryliardy", "trylionow" },
+                { "tryliard", "tryliardy", "tryliardow" },
                 { "kwadrylion", "kwadryliony", "kwadrylionow" },
+                { "kwadryliard", "kwadryliardy", "kwadryliardow" },
+                { "kwintylion", "kwintyliony", "kwintylionow" },
+                { "kwintyliard", "kwintyliardy", "kwintyliardow" },
+                { "sekstylion", "sekstyliony", "sekstylionow" },
+                { "sekstyliard", "sekstyliardy", "sekstyliardow" },
+                { "septylion", "septyliony", "septylionow"},
+                { "septyliard", "septyliardy", "septyliardow" },
+                { "oktylion", "oktyliony", "oktylionow" },
+                { "oktyliard", "oktyliardy", "oktyliardow" },
+                { "nonilion", "noniliony", "nonilionow" },
+                { "noniliard", "noniliardy", "noniliardow" },
+                { "decylion", "decyliony", "decylionow" },
+                { "decyliard", "decyliardy", "decyliardow" },
+                { "undecylion", "undecyliony", "undecylionow" },
+                { "undecyliard", "undecyliardy", "undecyliardow" },
+                { "dodecylion", "dodecyliony", "dodecylionow" },
+                { "dodecyliard", "dodecyliardy", "dodecyliardow" },
+                { "tridecylion", "tridecyliony", "tridecylionow" },
+                { "tridecyliard", "tridecyliardy", "tridecyliardow" },
+                { "kwatuordecylion", "kwatuordecyliony", "kwatuordecylionow" },
+                { "kwatuordecyliard", "kwatuordecyliardy", "kwatuordecyliardow" },
+                { "kwindecylion", "kwindecyliony", "kwindecylionow" },
+                { "kwindecyliard", "kwindecyliardy", "kwindecyliardow" },
+                { "seksdecylion", "seksdecyliony", "seksdecylionow" },
+                { "seksdecyliard", "seksdecyliardy", "seksdecyliardow" },
+                { "septendecylion", "septendecyliony", "septendecylionow" },
+                { "septendecyliard", "septendecyliardy", "septendecyliardow" },
+                { "oktodecylion", "oktodecyliony", "oktodecylionow" },
+                { "oktodecyliard", "oktodecyliardy", "oktodecyliardow" },
+                { "nowemdecylion", "nowemdecyliony", "nowemdecylionow" },
+                { "nowemdecyliard", "nowemdecyliardy", "nowemdecyliardow" },
+                { "wicylion", "wicyliony", "wicylionow" },
+                { "wicyliard", "wicyliardy", "wicyliardow" },
+                { "unwicylion", "unwicyliony", "unwicylionow" },
+                { "unwicyliard", "unwicyliardy", "unwicyliardow" },
+                { "dowicylion", "dowicyliony", "dowicylionow" },
+                { "dowicyliard", "dowicyliardy", "dowicyliardow" },
+                { "triwicylion", "triwicyliony", "triwicylionow" },
+                { "triwicyliard", "triwicyliardy", "triwicyliardow" },
+                
+
                
             };
 
@@ -134,6 +175,8 @@ namespace ConvertNumberIntoWords
             Console.WriteLine("12º->" + ConvertNumberIntoWords("1000000000000000000000"));
             Console.WriteLine("13º->" + ConvertNumberIntoWords("7685768756568"));
             Console.WriteLine("13º->" + ConvertNumberIntoWords("587634876598654724"));
+            Console.WriteLine("13º->" + ConvertNumberIntoWords("100003000000000040000000004000000"));
+            Console.WriteLine("13º->" + ConvertNumberIntoWords("9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999"));
 
             
             
