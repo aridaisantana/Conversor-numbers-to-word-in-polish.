@@ -15,29 +15,37 @@ namespace ConvertNumberIntoWords
             inputNumber = number;
         }
 
-        public void setConjugation()
+        public void updateConjugation()
         {
            
             if (inputNumber.Length != 0)
             {
                 if (inputNumber.Length <= 3)
                 {
-
-                    int jSingles = int.Parse(inputNumber) % 10;
-                    kConjugation = setConjugationHelper(jSingles);
-
+                    kConjugation = setConjugation(inputNumber);
                 }
                 else if (inputNumber.Length > 3)
                 {
-                    int jSingles = int.Parse(inputNumber.Substring(inputNumber.Length - 3)) % 10;
-                    kConjugation = setConjugationHelper(jSingles);
+                    kConjugation = setConjugation(inputNumber.Substring(inputNumber.Length - 3));
                 }
             }
             
         }
 
-        public int setConjugationHelper(int jSingles)
+        private int setConjugation(string number)
         {
+            int jSingles = 0;
+
+            try
+            {
+                jSingles = int.Parse(number) % 10;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ha habido un error de tipo:" + ex.GetType() + " con la cifra ingresada");
+            }
+
+            
             if (jSingles == 1)
             {
                 return 0;
@@ -57,9 +65,14 @@ namespace ConvertNumberIntoWords
             return kConjugation;
         }
 
+        public bool HasNext()
+        {
+            return inputNumber.Length != 0;
+        }
+
         public string Next()
         {
-            if(inputNumber.Length == 0) return "";
+            if(!HasNext()) return "";
 
             string result = "";
 
@@ -76,11 +89,6 @@ namespace ConvertNumberIntoWords
               
             return result;
             
-        }
-
-        public string getInputNumber()
-        {
-            return inputNumber;
         }
 
         public void incrementGMagnitude()
