@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+
 namespace ConvertNumberIntoWords
 
 {
@@ -14,61 +15,11 @@ namespace ConvertNumberIntoWords
         protected static string[] TEENS = { "", "jedenaście", "dwanaście", "trzynaście", "czternaście", "piętnaście", "szesnaście", "siedemnaście", "osiemnaście", "dziewiętnaście" };
         protected static string[] TENS = { "", "dziesięć", "dwadzieścia", "trzydzieści", "czterdzieści", "pięćdziesiąt", "sześćdziesiąt", "siedemdziesiąt", "osiemdziesiąt", "dziewięćdziesiąt" };
         protected static string[] HUNDREDS = { "", "sto", "dwieście", "trzysta", "czterysta", "pięćset", "sześćset", "siedemset", "osiemset", "dziewięćset" };
-        protected static string[,] CONJUGATIONS = new string[,]
-            {
-                { "", "", ""                           },
-                { "tysiąc", "tysiące", "tysięcy"       },
-                { "milion" , "miliony" , "milionów"    },
-                { "miliard", "miliardy", "miliardów"   },
-                { "bilion" , "biliony" , "bilionow"    },
-                { "biliard", "biliardy", "biliardow"   },
-                { "trylion" , "tryliony", "trylionow" },
-                { "tryliard", "tryliardy", "tryliardow" },
-                { "kwadrylion", "kwadryliony", "kwadrylionow" },
-                { "kwadryliard", "kwadryliardy", "kwadryliardow" },
-                { "kwintylion", "kwintyliony", "kwintylionow" },
-                { "kwintyliard", "kwintyliardy", "kwintyliardow" },
-                { "sekstylion", "sekstyliony", "sekstylionow" },
-                { "sekstyliard", "sekstyliardy", "sekstyliardow" },
-                { "septylion", "septyliony", "septylionow"},
-                { "septyliard", "septyliardy", "septyliardow" },
-                { "oktylion", "oktyliony", "oktylionow" },
-                { "oktyliard", "oktyliardy", "oktyliardow" },
-                { "nonilion", "noniliony", "nonilionow" },
-                { "noniliard", "noniliardy", "noniliardow" },
-                { "decylion", "decyliony", "decylionow" },
-                { "decyliard", "decyliardy", "decyliardow" },
-                { "undecylion", "undecyliony", "undecylionow" },
-                { "undecyliard", "undecyliardy", "undecyliardow" },
-                { "dodecylion", "dodecyliony", "dodecylionow" },
-                { "dodecyliard", "dodecyliardy", "dodecyliardow" },
-                { "tridecylion", "tridecyliony", "tridecylionow" },
-                { "tridecyliard", "tridecyliardy", "tridecyliardow" },
-                { "kwatuordecylion", "kwatuordecyliony", "kwatuordecylionow" },
-                { "kwatuordecyliard", "kwatuordecyliardy", "kwatuordecyliardow" },
-                { "kwindecylion", "kwindecyliony", "kwindecylionow" },
-                { "kwindecyliard", "kwindecyliardy", "kwindecyliardow" },
-                { "seksdecylion", "seksdecyliony", "seksdecylionow" },
-                { "seksdecyliard", "seksdecyliardy", "seksdecyliardow" },
-                { "septendecylion", "septendecyliony", "septendecylionow" },
-                { "septendecyliard", "septendecyliardy", "septendecyliardow" },
-                { "oktodecylion", "oktodecyliony", "oktodecylionow" },
-                { "oktodecyliard", "oktodecyliardy", "oktodecyliardow" },
-                { "nowemdecylion", "nowemdecyliony", "nowemdecylionow" },
-                { "nowemdecyliard", "nowemdecyliardy", "nowemdecyliardow" },
-                { "wicylion", "wicyliony", "wicylionow" },
-                { "wicyliard", "wicyliardy", "wicyliardow" },
-                { "unwicylion", "unwicyliony", "unwicylionow" },
-                { "unwicyliard", "unwicyliardy", "unwicyliardow" },
-                { "dowicylion", "dowicyliony", "dowicylionow" },
-                { "dowicyliard", "dowicyliardy", "dowicyliardow" },
-                { "triwicylion", "triwicyliony", "triwicylionow" },
-                { "triwicyliard", "triwicyliardy", "triwicyliardow" },
+        protected static string[] FIRSTCONJUGATION = {"", "tysiąc", "milion", "miliard", "bilion", "biliard", "trylion", "tryliard", "kwadrylion", "kwadryliard", "kwintylion", "kwintyliard", "sekstylion", "sekstyliard", "septylion", "septyliard", "oktylion", "oktyliard", "nonilion", "noniliard", "decylion", "decyliard", "undecylion", "undecyliard", "dodecylion", "dodecyliard", "tridecylion", "tridecyliard", "kwatuordecylion", "kwatuordecyliard", "kwindecylion", "kwindecyliard", "seksdecylion", "seksdecyliard", "septendecylion", "septendecyliard", "oktodecylion", "oktodecyliard", "nowemdecylion", "nowemdecyliard", "wicylion", "wicyliard", "unwicylion", "unwicyliard", "dowicylion", "dowicyliard", "triwicylion", "triwicyliard" };
+        protected static string[] SECONDCONJUGATION = {"", "tysiące", "miliony", "miliardy", "biliony", "biliardy", "tryliony", "tryliardy", "kwadryliony", "kwadryliardy", "kwintyliony", "kwintyliardy", "sekstyliony", "sekstyliardy", "septyliony", "septyliardy", "oktyliony", "oktyliardy", "noniliony", "noniliardy", "decyliony", "decyliardy", "undecyliony", "undecyliardy", "dodecyliony", "dodecyliardy", "tridecyliony", "tridecyliardy", "kwatuordecyliony", "kwatuordecyliardy", "kwindecyliony", "kwindecyliardy", "seksdecyliony", "seksdecyliardy", "septendecyliony", "septendecyliardy", "oktodecyliony", "oktodecyliardy", "nowemdecyliony", "nowemdecyliardy", "wicyliony", "wicyliardy", "unwicyliony", "unwicyliardy", "dowicyliony", "dowicyliardy", "triwicyliony", "triwicyliardy" };
+        protected static string[] THIRDCONJUGATION = { "", "tysięcy", "milionów", "miliardów", "bilionow", "biliardow", "trylionow", "tryliardow", "kwadrylionow", "kwadryliardow", "kwintylionow", "kwintyliardow", "sekstylionow", "sekstyliardow", "septylionow", "septyliardow", "oktylionow", "oktyliardow", "nonilionow", "noniliardow", "decylionow", "decyliardow", "undecylionow", "undecyliardow", "dodecylionow", "dodecyliardow","tridecylionow","tridecyliardow","kwatuordecylionow","kwatuordecyliardow","kwindecylionow","kwindecyliardow","seksdecylionow","seksdecyliardow","septendecylionow","septendecyliardow","oktodecylionow","oktodecyliardow","nowemdecylionow","nowemdecyliardow","wicylionow","wicyliardow","unwicylionow","unwicyliardow","dowicylionow","dowicyliardow","triwicylionow","triwicyliardow" };
 
-
-
-            };
-
+      
         public String ConvertIntoWords(string input)
         {
 
@@ -92,6 +43,7 @@ namespace ConvertNumberIntoWords
             int dTens = 0;
             int jSingles = 0;
             int nTeens = 0;
+            int conjugation = 0;
 
             while (iterator.HasNext())
             {
@@ -134,15 +86,25 @@ namespace ConvertNumberIntoWords
                 if (sHundreds + dTens + nTeens + jSingles > 0)
                 {
 
-                    if (sHundreds + dTens + nTeens == 0 && jSingles == 1 && !String.IsNullOrWhiteSpace(CONJUGATIONS[iterator.getGMagnitude(), iterator.getConjugation()]))
+                    if (sHundreds + dTens + nTeens == 0 && jSingles == 1 && !String.IsNullOrWhiteSpace(FIRSTCONJUGATION[iterator.getGMagnitude()]))
                     {
                         //do not say 'jeden tysiąc' but 'tysiąc'
                         jSingles = 0;
                     }
 
-
-                    groups.Add(string.Format(" {0} {1} {2} {3} {4}", HUNDREDS[sHundreds], TENS[dTens], TEENS[nTeens], SINGLES[jSingles], CONJUGATIONS[iterator.getGMagnitude(), iterator.getConjugation()]));
-
+                    conjugation = iterator.getConjugation();
+                    if(conjugation == 0)
+                    {
+                        groups.Add(string.Format(" {0} {1} {2} {3} {4}", HUNDREDS[sHundreds], TENS[dTens], TEENS[nTeens], SINGLES[jSingles], FIRSTCONJUGATION[iterator.getGMagnitude()]));
+                    }
+                    else if(conjugation == 1)
+                    {
+                        groups.Add(string.Format(" {0} {1} {2} {3} {4}", HUNDREDS[sHundreds], TENS[dTens], TEENS[nTeens], SINGLES[jSingles], SECONDCONJUGATION[iterator.getGMagnitude()]));
+                    }
+                    else
+                    {
+                        groups.Add(string.Format(" {0} {1} {2} {3} {4}", HUNDREDS[sHundreds], TENS[dTens], TEENS[nTeens], SINGLES[jSingles], THIRDCONJUGATION[iterator.getGMagnitude()]));
+                    }
                 }
 
                 iterator.incrementGMagnitude();

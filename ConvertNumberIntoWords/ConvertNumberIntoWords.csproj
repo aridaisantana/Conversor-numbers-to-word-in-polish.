@@ -35,6 +35,7 @@
     <Compile Include="Numbers.cs" />
     <Compile Include="Cardinal.cs" />
     <Compile Include="MainClass.cs" />
+    <Compile Include="Ordinal.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
