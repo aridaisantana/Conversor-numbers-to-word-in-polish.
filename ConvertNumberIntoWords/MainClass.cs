@@ -28,15 +28,34 @@ namespace ConvertNumberIntoWords
             //Console.WriteLine("13º->" + cardinal.ConvertIntoWords("0000001"));
             Ordinal ordinal = new Ordinal();
             Console.WriteLine("1º ->" + ordinal.ConvertIntoWords("23"));
-            Console.WriteLine("1º ->" + ordinal.ConvertIntoWords("29"));
-            Console.WriteLine("1º ->" + ordinal.ConvertIntoWords("88"));
-            Console.WriteLine("1º ->" + ordinal.ConvertIntoWords("103"));
-            Console.WriteLine("1º ->" + ordinal.ConvertIntoWords("330"));
-            Console.WriteLine("1º ->" + ordinal.ConvertIntoWords("3434"));
-            Console.WriteLine("1º ->" + ordinal.ConvertIntoWords("11324"));
-            Console.WriteLine("1º ->" + ordinal.ConvertIntoWords("405701"));
-            Console.WriteLine("1º ->" + ordinal.ConvertIntoWords("1003197"));
-            Console.WriteLine("1º ->" + ordinal.ConvertIntoWords("1001"));
+            Console.WriteLine("2º ->" + ordinal.ConvertIntoWords("29"));
+            Console.WriteLine("3º ->" + ordinal.ConvertIntoWords("88"));
+            Console.WriteLine("4º ->" + ordinal.ConvertIntoWords("103"));
+            Console.WriteLine("5º ->" + ordinal.ConvertIntoWords("330"));
+            Console.WriteLine("6º ->" + ordinal.ConvertIntoWords("3434"));
+            Console.WriteLine("7º ->" + ordinal.ConvertIntoWords("11324"));
+            Console.WriteLine("8º ->" + ordinal.ConvertIntoWords("405701"));
+            Console.WriteLine("9º ->" + ordinal.ConvertIntoWords("1003197"));
+            Console.WriteLine("10º ->" + ordinal.ConvertIntoWords("100"));
+            Console.WriteLine("11º ->" + ordinal.ConvertIntoWords("200"));
+            Console.WriteLine("12º ->" + ordinal.ConvertIntoWords("300"));
+            Console.WriteLine("13º ->" + ordinal.ConvertIntoWords("1000"));
+            Console.WriteLine("14º ->" + ordinal.ConvertIntoWords("1000000"));
+            Console.WriteLine("15º ->" + ordinal.ConvertIntoWords("3100"));
+            Console.WriteLine("16º ->" + ordinal.ConvertIntoWords("1001000"));
+            Console.WriteLine("17º ->" + ordinal.ConvertIntoWords("6200000"));
+            Console.WriteLine("18º ->" + ordinal.ConvertIntoWords("1500000"));
+            Console.WriteLine("19º ->" + ordinal.ConvertIntoWords("1002004"));
+            Console.WriteLine("20º ->" + ordinal.ConvertIntoWords("1002000"));
+            Console.WriteLine("20º ->" + ordinal.ConvertIntoWords("1001100"));
+            Console.WriteLine("20º ->" + ordinal.ConvertIntoWords("1002000"));
+            Console.WriteLine("20º ->" + ordinal.ConvertIntoWords("500000"));
+            Console.WriteLine("20º ->" + ordinal.ConvertIntoWords("300100"));
+            Console.WriteLine("20º ->" + ordinal.ConvertIntoWords("300000"));
+            Console.WriteLine("20º ->" + ordinal.ConvertIntoWords("5000"));
+            Console.WriteLine("20º ->" + ordinal.ConvertIntoWords("100000"));
+            Console.WriteLine("20º ->" + ordinal.ConvertIntoWords("200000"));
+            Console.WriteLine("20º ->" + ordinal.ConvertIntoWords("100400"));
 
 
         }
