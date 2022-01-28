@@ -23,7 +23,7 @@ namespace ConvertNumberIntoWords
         protected static string[] OTENS = { "", "dziesiąty", "dwudziesty", "trzydziesty", "czterdziesty", "pięćdziesiąty", "sześćdziesiąty", "siedemdziesiąty", "osiemdziesiąty", "dziewięćdziesiąty" };
         protected static string[] OHUNDREDS = { "", "setny", "dwusetny", "trzechsetny", "czterechsetny", "pięćsetny", "sześćsetny", "siedemsetny", "osiemsetny", "dziewięćsetny" };
         protected static string[] OCONJUGATIONS = { "", "tysięczny", "milionowy", "miliardowa", "trilionowy", "triliardowa" };
-        protected static string[] OPREFIXES = { "", "stu", "dwu", "trzech", "czterech", "pięcio", "sześć", "siedem", "osiem", "dziewięć" };
+        protected static string[] OPREFIXES = { "","stu", "dwu", "trzech", "czterech", "pięcio", "sześć", "siedem", "osiem", "dziewięć" };
 
         public string ConvertIntoWords(string input)
         {
@@ -88,7 +88,7 @@ namespace ConvertNumberIntoWords
 
                     if (sHundreds + dTens + nTeens == 0 && jSingles != 0 && !String.IsNullOrWhiteSpace(CFIRSTCONJUGATION[iterator.getGMagnitude()]))
                     {
-                        if(jSingles == 1)
+                        if (jSingles == 1)
                         {
                             //do not say 'jeden tysiąc' but 'tysiąc'
                             jSingles = 0;
@@ -98,35 +98,37 @@ namespace ConvertNumberIntoWords
                         {
                             prefixe = jSingles % 10;
                         }
-                        
-                        
-                    }
-                    
 
-                  
+
+                    }
+
+
+
 
                     conjugation = iterator.getConjugation();
                     //Cambiar la primera condición para aceptar numeros como 100, 100.000, 3.100.000
-                    if (countZeros == 0 && iterator.getGMagnitude() == 0 && sHundreds > 0 && dTens + nTeens == 0)
+                    if (countZeros == 0 && iterator.getGMagnitude() == 0 && sHundreds > 0 && dTens + nTeens + jSingles == 0)
                     {
-                        string hundreds = OPREFIXES[prefixe] + OHUNDREDS[sHundreds];
-                        groups.Add(string.Format(" {0} {1} {2} {3}", hundreds, OTENS[dTens], OTEENS[nTeens], OSINGLES[jSingles]));
-                    }
-                    else if(IsEmpty(groups))
-                    {
-                        if(sHundreds > 0 && dTens + nTeens + jSingles == 0)
-                        {
-                            groups.Add(string.Format(" {0} {1} {2} {3} {4}", CHUNDREDS[sHundreds], CTENS[dTens], CTEENS[nTeens], CSINGLES[jSingles], OCONJUGATIONS[iterator.getGMagnitude()]));
 
-                        }else if ((sHundreds + dTens + nTeens == 0 && jSingles > 0) && countZeros != 0){
+                        groups.Add(string.Format(" {0} {1} {2} {3}", OHUNDREDS[sHundreds], OTENS[dTens], OTEENS[nTeens], OSINGLES[jSingles]));
+                    }
+                    else if (IsEmpty(groups))
+
+                        //Faltaría hacer funcionar el 100mil, 200mil etc... Poniendole el prefijo correspondiente ej: 300k = trzystu + tysieczny
+                        // 200k = dwustu + tysieczny 100k = stutysieczny
+                    {
+                        if ((sHundreds + dTens + nTeens == 0 && jSingles > 0) && countZeros != 0)
+                        {
                             prefixe = jSingles % 10;
-                            if (prefixe == 0) { prefixe = 1; }
                             string stringConjugation = OPREFIXES[prefixe] + OCONJUGATIONS[iterator.getGMagnitude()];
                             groups.Add(string.Format(" {0} {1} {2} {3} {4}", OHUNDREDS[sHundreds], OTENS[dTens], OTEENS[nTeens], "", stringConjugation));
+                        }else if (countZeros != 0)
+                        {
+                            groups.Add(string.Format(" {0} {1} {2} {3} {4}", CHUNDREDS[sHundreds], CTENS[dTens], CTEENS[nTeens], CSINGLES[jSingles], OCONJUGATIONS[iterator.getGMagnitude()]));
                         }
                         else
                         {
-                            groups.Add(string.Format(" {0} {1} {2} {3} {4}", CHUNDREDS[sHundreds], OTENS[dTens], OTEENS[nTeens], OSINGLES[jSingles], CFIRSTCONJUGATION[iterator.getGMagnitude()]));
+                            groups.Add(string.Format(" {0} {1} {2} {3} {4}", CHUNDREDS[sHundreds], OTENS[dTens], OTEENS[nTeens], OSINGLES[jSingles], OCONJUGATIONS[iterator.getGMagnitude()]));
                         }
                     }
                     else
