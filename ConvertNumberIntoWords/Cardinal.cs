@@ -43,7 +43,8 @@ namespace ConvertNumberIntoWords
             int dTens = 0;
             int jSingles = 0;
             int nTeens = 0;
-            int conjugation = 0;
+            int conjugationNumber = 0;
+            string conjugation = "";
 
             while (iterator.HasNext())
             {
@@ -92,19 +93,22 @@ namespace ConvertNumberIntoWords
                         jSingles = 0;
                     }
 
-                    conjugation = iterator.getConjugation();
-                    if(conjugation == 0)
+                    conjugationNumber = iterator.getConjugation();
+
+                    if(conjugationNumber == 0)
                     {
-                        groups.Add(string.Format(" {0} {1} {2} {3} {4}", HUNDREDS[sHundreds], TENS[dTens], TEENS[nTeens], SINGLES[jSingles], FIRSTCONJUGATION[iterator.getGMagnitude()]));
+                        conjugation = FIRSTCONJUGATION[iterator.getGMagnitude()];
                     }
-                    else if(conjugation == 1)
+                    else if(conjugationNumber == 1)
                     {
-                        groups.Add(string.Format(" {0} {1} {2} {3} {4}", HUNDREDS[sHundreds], TENS[dTens], TEENS[nTeens], SINGLES[jSingles], SECONDCONJUGATION[iterator.getGMagnitude()]));
+                        conjugation = SECONDCONJUGATION[iterator.getGMagnitude()];
                     }
                     else
                     {
-                        groups.Add(string.Format(" {0} {1} {2} {3} {4}", HUNDREDS[sHundreds], TENS[dTens], TEENS[nTeens], SINGLES[jSingles], THIRDCONJUGATION[iterator.getGMagnitude()]));
+                        conjugation = THIRDCONJUGATION[iterator.getGMagnitude()];
                     }
+
+                    groups.Add(string.Format(" {0} {1} {2} {3} {4}", HUNDREDS[sHundreds], TENS[dTens], TEENS[nTeens], SINGLES[jSingles], conjugation));
                 }
 
                 iterator.incrementGMagnitude();

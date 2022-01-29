@@ -58,6 +58,7 @@ namespace ConvertNumberIntoWords
             Console.WriteLine("29º ->" + ordinal.ConvertIntoWords("6000000"));
             Console.WriteLine("30º ->" + ordinal.ConvertIntoWords("6200000"));
             Console.WriteLine("30º ->" + ordinal.ConvertIntoWords("114000"));
+            Console.WriteLine("30º ->" + ordinal.ConvertIntoWords("3200000"));
            
         }
     }

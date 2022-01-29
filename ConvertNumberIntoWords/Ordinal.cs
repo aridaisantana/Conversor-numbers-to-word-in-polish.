@@ -47,8 +47,8 @@ namespace ConvertNumberIntoWords
             int dTens = 0;
             int jSingles = 0;
             int nTeens = 0;
-            int conjugation = 0;
-            int prefixe = 0;
+            int conjugationNumber = 0;
+            string conjugation = "";
             int countZeros = 0;
 
             while (iterator.HasNext())
@@ -92,36 +92,22 @@ namespace ConvertNumberIntoWords
                         {
                             //do not say 'jeden tysiąc' but 'tysiąc'
                             jSingles = 0;
-                            prefixe = 0;
                         }
-                        else
-                        {
-                            prefixe = jSingles % 10;
-                        }
-
-
                     }
 
-
-
-
-                    conjugation = iterator.getConjugation();
-                    //Cambiar la primera condición para aceptar numeros como 100, 100.000, 3.100.000
+                    conjugationNumber = iterator.getConjugation();
                     if (countZeros == 0 && iterator.getGMagnitude() == 0 && sHundreds > 0 && dTens + nTeens + jSingles == 0)
                     {
 
                         groups.Add(string.Format(" {0} {1} {2} {3}", OHUNDREDS[sHundreds], OTENS[dTens], OTEENS[nTeens], OSINGLES[jSingles]));
                     }
                     else if (IsEmpty(groups))
-
-                        //Faltaría hacer funcionar el 100mil, 200mil etc... Poniendole el prefijo correspondiente ej: 300k = trzystu + tysieczny
-                        // 200k = dwustu + tysieczny 100k = stutysieczny
                     {
                         if ((sHundreds + dTens + nTeens == 0 && jSingles > 0) && countZeros != 0)
                         {
-                            prefixe = jSingles % 10;
-                            string stringConjugation = OPREFIXES[prefixe] + OCONJUGATIONS[iterator.getGMagnitude()];
-                            groups.Add(string.Format(" {0} {1} {2} {3} {4}", OHUNDREDS[sHundreds], OTENS[dTens], OTEENS[nTeens], "", stringConjugation));
+                            conjugation = OPREFIXES[jSingles] + OCONJUGATIONS[iterator.getGMagnitude()];
+                            groups.Add(string.Format(" {0}", conjugation));
+
                         }else if (countZeros != 0)
                         {
                             groups.Add(string.Format(" {0} {1} {2} {3} {4}", CHUNDREDS[sHundreds], CTENS[dTens], CTEENS[nTeens], CSINGLES[jSingles], OCONJUGATIONS[iterator.getGMagnitude()]));
@@ -133,18 +119,21 @@ namespace ConvertNumberIntoWords
                     }
                     else
                     {
-                        if (conjugation == 0)
+                        if (conjugationNumber == 0)
                         {
-                            groups.Add(string.Format(" {0} {1} {2} {3} {4}", CHUNDREDS[sHundreds], CTENS[dTens], CTEENS[nTeens], CSINGLES[jSingles], CFIRSTCONJUGATION[iterator.getGMagnitude()]));
+                            conjugation = CFIRSTCONJUGATION[iterator.getGMagnitude()];
                         }
-                        else if (conjugation == 1)
+                        else if (conjugationNumber == 1)
                         {
-                            groups.Add(string.Format(" {0} {1} {2} {3} {4}", CHUNDREDS[sHundreds], CTENS[dTens], CTEENS[nTeens], CSINGLES[jSingles], CSECONDCONJUGATION[iterator.getGMagnitude()]));
+                            conjugation = CSECONDCONJUGATION[iterator.getGMagnitude()];
                         }
                         else
                         {
-                            groups.Add(string.Format(" {0} {1} {2} {3} {4}", CHUNDREDS[sHundreds], CTENS[dTens], CTEENS[nTeens], CSINGLES[jSingles], CTHIRDCONJUGATION[iterator.getGMagnitude()]));
+                            conjugation = CTHIRDCONJUGATION[iterator.getGMagnitude()];
                         }
+
+                        groups.Add(string.Format(" {0} {1} {2} {3} {4}", CHUNDREDS[sHundreds], CTENS[dTens], CTEENS[nTeens], CSINGLES[jSingles], conjugation));
+
                     }
 
                 }
