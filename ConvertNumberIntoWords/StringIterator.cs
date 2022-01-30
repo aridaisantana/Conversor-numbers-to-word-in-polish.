@@ -7,69 +7,15 @@ namespace ConvertNumberIntoWords
     {
 
         private string inputNumber;
-        private int gMagnitude = 0;
-        private int kConjugation = 0;
+        private int conjugationIndex = 0;
+        private int conjugationType = 0;
 
         public StringIterator(string number)
         {
             inputNumber = number;
         }
 
-        public void updateConjugation()
-        {
-           
-            if (inputNumber.Length != 0)
-            {
-                if (inputNumber.Length <= 3)
-                {
-                    kConjugation = setConjugation(inputNumber);
-                }
-                else if (inputNumber.Length > 3)
-                {
-                    kConjugation = setConjugation(inputNumber.Substring(inputNumber.Length - 3));
-                }
-            }
-            
-        }
-
-        private int setConjugation(string number)
-        {
-            int jSingles = 0;
-
-            try
-            {
-                jSingles = int.Parse(number) % 10;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Ha habido un error de tipo:" + ex.GetType() + " con la cifra ingresada");
-            }
-
-            
-            if (jSingles == 1)
-            {
-                return 0;
-            }
-            else if (jSingles >= 2 && jSingles <= 4)
-            {
-                return 1;
-            }
-            else
-            {
-                return 2;
-            }
-        }
-
-        public int getConjugation()
-        {
-            return kConjugation;
-        }
-
-        public bool HasNext()
-        {
-            return inputNumber.Length != 0;
-        }
-
+       
         public string Next()
         {
             if(!HasNext()) return "";
@@ -91,14 +37,70 @@ namespace ConvertNumberIntoWords
             
         }
 
-        public void incrementGMagnitude()
+        public bool HasNext()
         {
-            gMagnitude++;
+            return inputNumber.Length != 0;
         }
 
-        public int getGMagnitude()
+        public int getConjugationType()
         {
-            return gMagnitude;
+            getConjugationTypeHelper();
+            return conjugationType;
+        }
+
+        private void getConjugationTypeHelper()
+        {
+
+            if (inputNumber.Length != 0)
+            {
+                if (inputNumber.Length <= 3)
+                {
+                    conjugationType = getConjugationTypeHelper(inputNumber);
+                }
+                else if (inputNumber.Length > 3)
+                {
+                    conjugationType = getConjugationTypeHelper(inputNumber.Substring(inputNumber.Length - 3));
+                }
+            }
+
+        }
+
+        private int getConjugationTypeHelper(string number)
+        {
+            int jSingles = 0;
+
+            try
+            {
+                jSingles = int.Parse(number) % 10;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ha habido un error de tipo:" + ex.GetType() + " con la cifra ingresada");
+            }
+
+
+            if (jSingles == 1)
+            {
+                return 0;
+            }
+            else if (jSingles >= 2 && jSingles <= 4)
+            {
+                return 1;
+            }
+            else
+            {
+                return 2;
+            }
+        }
+
+        public void incrementConjugationIndex()
+        {
+            conjugationIndex++;
+        }
+
+        public int getConjugationIndex()
+        {
+            return conjugationIndex;
         }
     }
 }

@@ -43,7 +43,8 @@ namespace ConvertNumberIntoWords
             int dTens = 0;
             int jSingles = 0;
             int nTeens = 0;
-            int conjugationNumber = 0;
+            int conjugationType = 0;
+            int conjugationIndex = 0;
             string conjugation = "";
 
             while (iterator.HasNext())
@@ -58,6 +59,7 @@ namespace ConvertNumberIntoWords
                     }
 
                     number = int.Parse(iterator.Next());
+                    conjugationIndex = iterator.getConjugationIndex();
 
                 }
                 catch (Exception ex)
@@ -87,32 +89,18 @@ namespace ConvertNumberIntoWords
                 if (sHundreds + dTens + nTeens + jSingles > 0)
                 {
 
-                    if (sHundreds + dTens + nTeens == 0 && jSingles == 1 && !String.IsNullOrWhiteSpace(FIRSTCONJUGATION[iterator.getGMagnitude()]))
+                    if (sHundreds + dTens + nTeens == 0 && jSingles == 1 && !String.IsNullOrWhiteSpace(FIRSTCONJUGATION[conjugationIndex]))
                     {
                         //do not say 'jeden tysiąc' but 'tysiąc'
                         jSingles = 0;
                     }
 
-                    conjugationNumber = iterator.getConjugation();
-
-                    if(conjugationNumber == 0)
-                    {
-                        conjugation = FIRSTCONJUGATION[iterator.getGMagnitude()];
-                    }
-                    else if(conjugationNumber == 1)
-                    {
-                        conjugation = SECONDCONJUGATION[iterator.getGMagnitude()];
-                    }
-                    else
-                    {
-                        conjugation = THIRDCONJUGATION[iterator.getGMagnitude()];
-                    }
-
+                    conjugation = getConjugation(conjugationIndex, conjugationType);
                     groups.Add(string.Format(" {0} {1} {2} {3} {4}", HUNDREDS[sHundreds], TENS[dTens], TEENS[nTeens], SINGLES[jSingles], conjugation));
                 }
 
-                iterator.incrementGMagnitude();
-                iterator.updateConjugation();
+                iterator.incrementConjugationIndex();
+                conjugationType = iterator.getConjugationType();
             }
 
 
@@ -123,6 +111,26 @@ namespace ConvertNumberIntoWords
             result = Regex.Replace(result, @"\s+", " ").Trim();
 
             return result;
+        }
+
+        public string getConjugation(int conjugationIndex, int conjugationType)
+        {
+            string conjugation = "";
+
+            if (conjugationType == 0)
+            {
+                conjugation = FIRSTCONJUGATION[conjugationIndex];
+            }
+            else if (conjugationType == 1)
+            {
+                conjugation = SECONDCONJUGATION[conjugationIndex];
+            }
+            else
+            {
+                conjugation = THIRDCONJUGATION[conjugationIndex];
+            }
+
+            return conjugation;
         }
     }
 }

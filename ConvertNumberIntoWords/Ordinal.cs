@@ -47,8 +47,9 @@ namespace ConvertNumberIntoWords
             int dTens = 0;
             int jSingles = 0;
             int nTeens = 0;
-            int conjugationNumber = 0;
             string conjugation = "";
+            int conjugationType = 0;
+            int conjugationIndex = 0;
             int countZeros = 0;
 
             while (iterator.HasNext())
@@ -57,6 +58,7 @@ namespace ConvertNumberIntoWords
                 try
                 {
                     string numberString = iterator.Next();
+                    conjugationIndex = iterator.getConjugationIndex();
                     number = int.Parse(numberString);
                 }
                 catch (Exception ex)
@@ -86,7 +88,7 @@ namespace ConvertNumberIntoWords
                 if (sHundreds + dTens + nTeens + jSingles > 0)
                 {
 
-                    if (sHundreds + dTens + nTeens == 0 && jSingles != 0 && !String.IsNullOrWhiteSpace(CFIRSTCONJUGATION[iterator.getGMagnitude()]))
+                    if (sHundreds + dTens + nTeens == 0 && jSingles != 0 && !String.IsNullOrWhiteSpace(CFIRSTCONJUGATION[conjugationIndex]))
                     {
                         if (jSingles == 1)
                         {
@@ -95,45 +97,32 @@ namespace ConvertNumberIntoWords
                         }
                     }
 
-                    conjugationNumber = iterator.getConjugation();
-                    if (countZeros == 0 && iterator.getGMagnitude() == 0 && sHundreds > 0 && dTens + nTeens + jSingles == 0)
+                    
+                    if (countZeros == 0 && iterator.getConjugationIndex() == 0 && sHundreds > 0 && dTens + nTeens + jSingles == 0)
                     {
 
-                        groups.Add(string.Format(" {0} {1} {2} {3}", OHUNDREDS[sHundreds], OTENS[dTens], OTEENS[nTeens], OSINGLES[jSingles]));
+                        groups.Add(string.Format(" {0}", OHUNDREDS[sHundreds]));
                     }
                     else if (IsEmpty(groups))
                     {
                         if ((sHundreds + dTens + nTeens == 0 && jSingles > 0) && countZeros != 0)
                         {
-                            conjugation = OPREFIXES[jSingles] + OCONJUGATIONS[iterator.getGMagnitude()];
+                            conjugation = OPREFIXES[jSingles] + OCONJUGATIONS[conjugationIndex];
                             groups.Add(string.Format(" {0}", conjugation));
 
                         }else if (countZeros != 0)
                         {
-                            groups.Add(string.Format(" {0} {1} {2} {3} {4}", CHUNDREDS[sHundreds], CTENS[dTens], CTEENS[nTeens], CSINGLES[jSingles], OCONJUGATIONS[iterator.getGMagnitude()]));
+                            groups.Add(string.Format(" {0} {1} {2} {3} {4}", CHUNDREDS[sHundreds], CTENS[dTens], CTEENS[nTeens], CSINGLES[jSingles], OCONJUGATIONS[conjugationIndex]));
                         }
                         else
                         {
-                            groups.Add(string.Format(" {0} {1} {2} {3} {4}", CHUNDREDS[sHundreds], OTENS[dTens], OTEENS[nTeens], OSINGLES[jSingles], OCONJUGATIONS[iterator.getGMagnitude()]));
+                            groups.Add(string.Format(" {0} {1} {2} {3} {4}", CHUNDREDS[sHundreds], OTENS[dTens], OTEENS[nTeens], OSINGLES[jSingles], OCONJUGATIONS[conjugationIndex]));
                         }
                     }
                     else
                     {
-                        if (conjugationNumber == 0)
-                        {
-                            conjugation = CFIRSTCONJUGATION[iterator.getGMagnitude()];
-                        }
-                        else if (conjugationNumber == 1)
-                        {
-                            conjugation = CSECONDCONJUGATION[iterator.getGMagnitude()];
-                        }
-                        else
-                        {
-                            conjugation = CTHIRDCONJUGATION[iterator.getGMagnitude()];
-                        }
-
+                        conjugation = getConjugation(conjugationIndex, conjugationType);
                         groups.Add(string.Format(" {0} {1} {2} {3} {4}", CHUNDREDS[sHundreds], CTENS[dTens], CTEENS[nTeens], CSINGLES[jSingles], conjugation));
-
                     }
 
                 }
@@ -142,8 +131,8 @@ namespace ConvertNumberIntoWords
                     countZeros++;
                 }
 
-                iterator.incrementGMagnitude();
-                iterator.updateConjugation();
+                iterator.incrementConjugationIndex();
+                conjugationType = iterator.getConjugationType();
             }
 
 
@@ -156,6 +145,25 @@ namespace ConvertNumberIntoWords
             return result;
         }
 
+        public string getConjugation (int conjugationIndex, int conjugationType )
+        {
+            string conjugation = "";
+
+            if (conjugationType == 0)
+            {
+                conjugation = CFIRSTCONJUGATION[conjugationIndex];
+            }
+            else if (conjugationType == 1)
+            {
+                conjugation = CSECONDCONJUGATION[conjugationIndex];
+            }
+            else
+            {
+                conjugation = CTHIRDCONJUGATION[conjugationIndex];
+            }
+
+            return conjugation;
+        }
 
         public static bool IsEmpty<T>(List<T> list)
         {
