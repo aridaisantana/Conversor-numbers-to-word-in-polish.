@@ -22,7 +22,7 @@ namespace ConvertNumberIntoWords
         protected static string[] OTEENS = { "", "jedenasty", "dwunasty", "trzynasty", "czternasty", "piętnasty", "szesnasty", "siedemnasty", "osiemnasty", "dziewiętnasty" };
         protected static string[] OTENS = { "", "dziesiąty", "dwudziesty", "trzydziesty", "czterdziesty", "pięćdziesiąty", "sześćdziesiąty", "siedemdziesiąty", "osiemdziesiąty", "dziewięćdziesiąty" };
         protected static string[] OHUNDREDS = { "", "setny", "dwusetny", "trzechsetny", "czterechsetny", "pięćsetny", "sześćsetny", "siedemsetny", "osiemsetny", "dziewięćsetny" };
-        protected static string[] OCONJUGATIONS = { "", "tysięczny", "milionowy", "miliardowa", "trilionowy", "triliardowa" };
+        protected static string[] OCONJUGATIONS = { "", "tysięczny", "milionowy", "miliardowa", "trilionowy", "triliardowa", "kwadrylionowy", "kwadryliardowa", "kwintylionowy", "kwintyliardowa", "sekstylionowy", "sekstyliardowa", "septylionowy", "septyliardowa", "oktylionowy", "oktyliardowa", "nonilionowy", "noniliardowa", "decylionowy", "decyliardowa", "undecylionowy", "undecyliardowa", "dodecylionowy", "dodecyliardowa", "tridecylionowy", "tridecyliardowa", "kwatuordecylionowy", "kwatuordecyliardowa", "kwindecylionowy", "kwindecyliardowa", "seksdecylionowy", "seksdecyliardowa", "septendecylionowy", "septendecyliardowa", "oktodecylionowy", "oktodecyliardowa", "nowemdecylionowy", "nowemdecyliardowa", "wicylionowy", "wicyliardowa", "unwicylionowy", "unwicyliardowa", "dowicylionowy", "dowicyliardowa", "triwicylionowy", "triwicyliardowa" };
         protected static string[] OPREFIXES = { "","stu", "dwu", "trzech", "czterech", "pięcio", "sześć", "siedem", "osiem", "dziewięć" };
 
         public string ConvertIntoWords(string input)
