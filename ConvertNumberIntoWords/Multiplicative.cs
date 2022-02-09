@@ -3,7 +3,7 @@ namespace ConvertNumberIntoWords
 {
     public class Multiplicative : Numbers
     {
-        public string ConvertIntoWords (string input)
+        public string ConvertIntoWords ()
         {
             //Numbers cardinal = new Cardinal();
             //return cardinal.ConvertIntoWords(input) + " razy";

@@ -35,21 +35,21 @@ namespace ConvertNumberIntoWords
         protected static string[] DECIMALSECONDCONJUGATION = { "setnych", "tysięcznych", "milionowych", "miliardowych", "bilionowych", "biliardowych" };
 
         private int ordinalSingle;
+        private IStringIterator iterator;
+        private int conjugationIndex = 0;
 
-        public Fractions(int ordinalSingle)
+
+        public Fractions(IStringIterator iterator, int ordinalSingle)
         {
             this.ordinalSingle = ordinalSingle;
+            this.iterator = iterator; 
         }
 
-        public String ConvertIntoWords(string input)
+        public String ConvertIntoWords()
         {
 
-
             StringBuilder builder = new StringBuilder();
-
-
             List<string> groups = new List<string>();
-            StringIterator iterator = new StringIterator(input);
 
             int number = 0;
             string numberString = "";
@@ -58,7 +58,6 @@ namespace ConvertNumberIntoWords
             int jSingles = 0;
             int nTeens = 0;
             int conjugationType = 0;
-            int conjugationIndex = 0;
             string conjugation = "";
             int countZeros = 0;
 
@@ -67,16 +66,8 @@ namespace ConvertNumberIntoWords
 
                 try
                 {
-                    if (input.Length == 1 && int.Parse(input) == 0)
-                    {
-                        builder.Append("zero");
-                        break;
-                    }
-
                     numberString = iterator.Next();
                     number = int.Parse(numberString);
-                    conjugationIndex = iterator.getConjugationIndex();
-
                 }
                 catch (Exception ex)
                 {
@@ -242,7 +233,7 @@ namespace ConvertNumberIntoWords
                     countZeros++;
                 }
 
-                iterator.incrementConjugationIndex();
+                conjugationIndex++;
                 conjugationType = iterator.getConjugationType();
             }
 

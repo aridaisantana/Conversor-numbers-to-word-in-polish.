@@ -92,16 +92,6 @@ namespace ConvertNumberIntoWords
                 return 2;
             }
         }
-
-        public void incrementConjugationIndex()
-        {
-            conjugationIndex++;
-        }
-
-        public int getConjugationIndex()
-        {
-            return conjugationIndex;
-        }
     }
 }
 

@@ -25,22 +25,19 @@ namespace ConvertNumberIntoWords
         protected static string[] OCONJUGATIONS = { "", "tysięczny", "milionowy", "miliardowa", "trilionowy", "triliardowa", "kwadrylionowy", "kwadryliardowa", "kwintylionowy", "kwintyliardowa", "sekstylionowy", "sekstyliardowa", "septylionowy", "septyliardowa", "oktylionowy", "oktyliardowa", "nonilionowy", "noniliardowa", "decylionowy", "decyliardowa", "undecylionowy", "undecyliardowa", "dodecylionowy", "dodecyliardowa", "tridecylionowy", "tridecyliardowa", "kwatuordecylionowy", "kwatuordecyliardowa", "kwindecylionowy", "kwindecyliardowa", "seksdecylionowy", "seksdecyliardowa", "septendecylionowy", "septendecyliardowa", "oktodecylionowy", "oktodecyliardowa", "nowemdecylionowy", "nowemdecyliardowa", "wicylionowy", "wicyliardowa", "unwicylionowy", "unwicyliardowa", "dowicylionowy", "dowicyliardowa", "triwicylionowy", "triwicyliardowa" };
         protected static string[] OPREFIXES = { "","stu", "dwu", "trzech", "czterech", "pięcio", "sześć", "siedem", "osiem", "dziewięć" };
 
-        public string ConvertIntoWords(string input)
+        private IStringIterator iterator;
+        private int conjugationIndex = 0;
+
+
+        public Ordinal(IStringIterator iterator)
+        {
+            this.iterator = iterator;
+        }
+
+        public string ConvertIntoWords()
         {
             StringBuilder builder = new StringBuilder();
-
-
-            bool isNegative = Regex.IsMatch(input, @"^[-][\d]+");
-
-            if (isNegative)
-            {
-                builder.Append("minus ");
-                input = input.Remove(0, 1);
-            }
-
-
             List<string> groups = new List<string>();
-            StringIterator iterator = new StringIterator(input);
 
             int number = 0;
             int sHundreds = 0;
@@ -49,7 +46,6 @@ namespace ConvertNumberIntoWords
             int nTeens = 0;
             string conjugation = "";
             int conjugationType = 0;
-            int conjugationIndex = 0;
             int countZeros = 0;
 
             while (iterator.HasNext())
@@ -58,7 +54,6 @@ namespace ConvertNumberIntoWords
                 try
                 {
                     string numberString = iterator.Next();
-                    conjugationIndex = iterator.getConjugationIndex();
                     number = int.Parse(numberString);
                 }
                 catch (Exception ex)
@@ -98,7 +93,7 @@ namespace ConvertNumberIntoWords
                     }
 
                     
-                    if (countZeros == 0 && iterator.getConjugationIndex() == 0 && sHundreds > 0 && dTens + nTeens + jSingles == 0)
+                    if (countZeros == 0 && conjugationIndex == 0 && sHundreds > 0 && dTens + nTeens + jSingles == 0)
                     {
 
                         groups.Add(string.Format(" {0}", OHUNDREDS[sHundreds]));
@@ -131,7 +126,7 @@ namespace ConvertNumberIntoWords
                     countZeros++;
                 }
 
-                iterator.incrementConjugationIndex();
+                conjugationIndex++;
                 conjugationType = iterator.getConjugationType();
             }
 

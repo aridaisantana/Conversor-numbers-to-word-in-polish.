@@ -27,21 +27,10 @@ namespace ConvertNumberIntoWords
             this.iterator = iterator;
         }
 
-        public String ConvertIntoWords(string input)
+        public String ConvertIntoWords()
         {
 
             StringBuilder builder = new StringBuilder();
-
-
-            bool isNegative = Regex.IsMatch(input, @"^[-][\d]+");
-
-            if (isNegative)
-            {
-                builder.Append("minus ");
-                input = input.Remove(0, 1);
-            }
-
-
             List<string> groups = new List<string>();
 
             int number = 0;
@@ -50,7 +39,6 @@ namespace ConvertNumberIntoWords
             int jSingles = 0;
             int nTeens = 0;
             int conjugationType = 0;
-            int tmpConjugationIndex = 0;
             string conjugation = "";
 
             while (iterator.HasNext())
@@ -58,15 +46,7 @@ namespace ConvertNumberIntoWords
 
                 try
                 {
-                    if (input.Length == 1 && int.Parse(input) == 0)
-                    {
-                        builder.Append("zero");
-                        break;
-                    }
-
                     number = int.Parse(iterator.Next());
-                    tmpConjugationIndex = conjugationIndex;
-
                 }
                 catch (Exception ex)
                 {

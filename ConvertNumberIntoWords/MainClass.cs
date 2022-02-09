@@ -7,8 +7,12 @@ namespace ConvertNumberIntoWords
     {
         static void Main(string[] args)
         {
-            Cardinal cardinal = new Cardinal(new StringIterator("3456346"));
-            Console.WriteLine(cardinal.ConvertIntoWords("3456346"));
+         
+            Cardinal cardinal = new Cardinal(new StringIterator("123456789"));
+            Console.WriteLine(cardinal.ConvertIntoWords());
+
+            Ordinal ordinal = new Ordinal(new StringIterator("123456789"));
+            Console.WriteLine(ordinal.ConvertIntoWords());
             //Console.WriteLine("1º ->" + cardinal.ConvertIntoWords("0"));
             //Console.WriteLine("1º ->" + cardinal.ConvertIntoWords("1"));
             //Console.WriteLine("2º->" + cardinal.ConvertIntoWords("-23"));
@@ -27,16 +31,15 @@ namespace ConvertNumberIntoWords
             //Console.WriteLine("13º->" + cardinal.ConvertIntoWords("100003000000000040000000004000000"));
             //Console.WriteLine("13º->" + cardinal.ConvertIntoWords("9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999"));
             //Console.WriteLine("13º->" + cardinal.ConvertIntoWords("0000001"));
-            Ordinal ordinal = new Ordinal();
-            Decimal decimals = new Decimal();
+            string input = "34";
+            Decimal decimals = new Decimal(new StringIterator("23"), input.Length);
             Multiplicative multiplicative = new Multiplicative();
 
             string number = "12/67";
             string [] coeficientes = number.Split('/');
             string numerador = coeficientes[0];
             string denominador = coeficientes[1];
-            Fractions fraction = new Fractions(int.Parse(numerador) % 10);
-            Console.WriteLine(cardinal.ConvertIntoWords(numerador) + " " + fraction.ConvertIntoWords(denominador));
+            Console.WriteLine(new Cardinal(new StringIterator(numerador)).ConvertIntoWords() + " " + new Fractions(new StringIterator(denominador), int.Parse(numerador) % 10).ConvertIntoWords());
            
        
 

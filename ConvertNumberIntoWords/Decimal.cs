@@ -21,15 +21,21 @@ namespace ConvertNumberIntoWords
         protected static string[] DECIMALFIRSTCONJUGATION = { "", "dziesiąte", "setne", "tysięczne", "dziesięciotysięczne", "stutysięczne", "milionowe", "dziesięciomilionowe", "stumilionowe", "miliardowe", "dziesięciomiliardowe", "stumiliardowe", "bilionowe", "dziesięciobilionowe", "stubilionowe", "biliardowe", "dziesięciobiliardowe", "stubiliardowe" };
         protected static string[] DECIMALSECONDCONJUGATION = { "", "dziesiątych", "setnych", "tysięcznych", "dziesięciotysięcznych", "stutysięcznych", "milionowych", "dziesięciomilionowych", "stumilionowych", "miliardowych", "dziesięciomiliardowych", "stumiliardowych", "bilionowych", "dziesięciobilionowych", "stubilionowych", "biliardowych", "dziesięciobiliardowych", "stubiliardowych" };
 
-        public String ConvertIntoWords(string input)
+        private IStringIterator iterator;
+        private int conjugationIndex = 0;
+        private int numberLength = 0;
+
+        public Decimal(IStringIterator iterator, int numberLength)
+        {
+            this.iterator = iterator;
+            this.numberLength = numberLength;
+        }
+
+        public String ConvertIntoWords()
         {
 
-
             StringBuilder builder = new StringBuilder();
- 
-
             List<string> groups = new List<string>();
-            StringIterator iterator = new StringIterator(input);
 
             int number = 0;
             int sHundreds = 0;
@@ -37,7 +43,6 @@ namespace ConvertNumberIntoWords
             int jSingles = 0;
             int nTeens = 0;
             int conjugationType = 0;
-            int decimalConjugationIndex = 0;
             int decimalConjugationType = 0;
             string conjugation = "";
 
@@ -46,15 +51,7 @@ namespace ConvertNumberIntoWords
 
                 try
                 {
-                    if (input.Length == 1 && int.Parse(input) == 0)
-                    {
-                        builder.Append("zero");
-                        break;
-                    }
-
                     number = int.Parse(iterator.Next());
-                    decimalConjugationIndex = iterator.getConjugationIndex();
-
                 }
                 catch (Exception ex)
                 {
@@ -87,22 +84,22 @@ namespace ConvertNumberIntoWords
                         decimalConjugationType = jSingles;
                     }
 
-                    if (sHundreds + dTens + nTeens == 0 && jSingles == 1 && !String.IsNullOrWhiteSpace(FIRSTCONJUGATION[decimalConjugationIndex]))
+                    if (sHundreds + dTens + nTeens == 0 && jSingles == 1 && !String.IsNullOrWhiteSpace(FIRSTCONJUGATION[conjugationIndex]))
                     {
                         //do not say 'jeden tysiąc' but 'tysiąc'
                         jSingles = 0;
                     }
 
-                    conjugation = getConjugation(decimalConjugationIndex, conjugationType);
+                    conjugation = getConjugation(conjugationIndex, conjugationType);
                     groups.Add(string.Format(" {0} {1} {2} {3} {4}", HUNDREDS[sHundreds], TENS[dTens], TEENS[nTeens], SINGLES[jSingles], conjugation));
                 }
 
-                iterator.incrementConjugationIndex();
+                conjugationIndex++;
                 conjugationType = iterator.getConjugationType();
             }
     
             groups.Reverse();
-            groups.Add(getDecimalConjugation(input.Length, decimalConjugationType));
+            groups.Add(getDecimalConjugation(numberLength, decimalConjugationType));
             groups.ForEach(x => builder.Append(x));
 
             string result = builder.ToString();
