@@ -39,6 +39,7 @@
     <Compile Include="Multiplicative.cs" />
     <Compile Include="StringIterator.cs" />
     <Compile Include="Fractions.cs" />
+    <Compile Include="IStringIterator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

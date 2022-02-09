@@ -3,7 +3,7 @@
 
 namespace ConvertNumberIntoWords
 {
-    public class StringIterator
+    public class StringIterator : IStringIterator
     {
 
         private string inputNumber;

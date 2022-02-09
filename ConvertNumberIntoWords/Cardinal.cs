@@ -19,7 +19,14 @@ namespace ConvertNumberIntoWords
         protected static string[] SECONDCONJUGATION = {"", "tysiące", "miliony", "miliardy", "biliony", "biliardy", "tryliony", "tryliardy", "kwadryliony", "kwadryliardy", "kwintyliony", "kwintyliardy", "sekstyliony", "sekstyliardy", "septyliony", "septyliardy", "oktyliony", "oktyliardy", "noniliony", "noniliardy", "decyliony", "decyliardy", "undecyliony", "undecyliardy", "dodecyliony", "dodecyliardy", "tridecyliony", "tridecyliardy", "kwatuordecyliony", "kwatuordecyliardy", "kwindecyliony", "kwindecyliardy", "seksdecyliony", "seksdecyliardy", "septendecyliony", "septendecyliardy", "oktodecyliony", "oktodecyliardy", "nowemdecyliony", "nowemdecyliardy", "wicyliony", "wicyliardy", "unwicyliony", "unwicyliardy", "dowicyliony", "dowicyliardy", "triwicyliony", "triwicyliardy" };
         protected static string[] THIRDCONJUGATION = { "", "tysięcy", "milionów", "miliardów", "bilionow", "biliardow", "trylionow", "tryliardow", "kwadrylionow", "kwadryliardow", "kwintylionow", "kwintyliardow", "sekstylionow", "sekstyliardow", "septylionow", "septyliardow", "oktylionow", "oktyliardow", "nonilionow", "noniliardow", "decylionow", "decyliardow", "undecylionow", "undecyliardow", "dodecylionow", "dodecyliardow","tridecylionow","tridecyliardow","kwatuordecylionow","kwatuordecyliardow","kwindecylionow","kwindecyliardow","seksdecylionow","seksdecyliardow","septendecylionow","septendecyliardow","oktodecylionow","oktodecyliardow","nowemdecylionow","nowemdecyliardow","wicylionow","wicyliardow","unwicylionow","unwicyliardow","dowicylionow","dowicyliardow","triwicylionow","triwicyliardow" };
 
-      
+        private IStringIterator iterator;
+        private int conjugationIndex = 0;
+
+        public Cardinal( IStringIterator iterator)
+        {
+            this.iterator = iterator;
+        }
+
         public String ConvertIntoWords(string input)
         {
 
@@ -36,7 +43,6 @@ namespace ConvertNumberIntoWords
 
 
             List<string> groups = new List<string>();
-            StringIterator iterator = new StringIterator(input);
 
             int number = 0;
             int sHundreds = 0;
@@ -44,7 +50,7 @@ namespace ConvertNumberIntoWords
             int jSingles = 0;
             int nTeens = 0;
             int conjugationType = 0;
-            int conjugationIndex = 0;
+            int tmpConjugationIndex = 0;
             string conjugation = "";
 
             while (iterator.HasNext())
@@ -59,7 +65,7 @@ namespace ConvertNumberIntoWords
                     }
 
                     number = int.Parse(iterator.Next());
-                    conjugationIndex = iterator.getConjugationIndex();
+                    tmpConjugationIndex = conjugationIndex;
 
                 }
                 catch (Exception ex)
@@ -99,7 +105,7 @@ namespace ConvertNumberIntoWords
                     groups.Add(string.Format(" {0} {1} {2} {3} {4}", HUNDREDS[sHundreds], TENS[dTens], TEENS[nTeens], SINGLES[jSingles], conjugation));
                 }
 
-                iterator.incrementConjugationIndex();
+                conjugationIndex++;
                 conjugationType = iterator.getConjugationType();
             }
 

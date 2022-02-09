@@ -7,7 +7,8 @@ namespace ConvertNumberIntoWords
     {
         static void Main(string[] args)
         {
-            Cardinal cardinal = new Cardinal();
+            Cardinal cardinal = new Cardinal(new StringIterator("3456346"));
+            Console.WriteLine(cardinal.ConvertIntoWords("3456346"));
             //Console.WriteLine("1º ->" + cardinal.ConvertIntoWords("0"));
             //Console.WriteLine("1º ->" + cardinal.ConvertIntoWords("1"));
             //Console.WriteLine("2º->" + cardinal.ConvertIntoWords("-23"));
