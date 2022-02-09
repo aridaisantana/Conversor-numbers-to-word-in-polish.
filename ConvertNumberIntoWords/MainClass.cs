@@ -30,20 +30,14 @@ namespace ConvertNumberIntoWords
             Decimal decimals = new Decimal();
             Multiplicative multiplicative = new Multiplicative();
 
-            Console.WriteLine(decimals.ConvertIntoWords("0,8753"));
-            Console.WriteLine(decimals.ConvertIntoWords("0,8756"));
-            Console.WriteLine(decimals.ConvertIntoWords("0,3"));
-            Console.WriteLine(decimals.ConvertIntoWords("0,7"));
-            Console.WriteLine(decimals.ConvertIntoWords("0,008"));
-            Console.WriteLine(decimals.ConvertIntoWords("0,004"));
-            Console.WriteLine(decimals.ConvertIntoWords("0,201"));
-            double numero1 = 45;
-            double numero2 = 63;
-            double total = (numero1 / numero2);
-            Console.WriteLine(total.ToString());
-            Console.WriteLine(decimals.ConvertIntoWords(total.ToString().Replace(".", ",")));
-            Console.WriteLine(multiplicative.ConvertIntoWords("235"));
-
+            string number = "12/67";
+            string [] coeficientes = number.Split('/');
+            string numerador = coeficientes[0];
+            string denominador = coeficientes[1];
+            Fractions fraction = new Fractions(int.Parse(numerador) % 10);
+            Console.WriteLine(cardinal.ConvertIntoWords(numerador) + " " + fraction.ConvertIntoWords(denominador));
+           
+       
 
            
         }

@@ -15,14 +15,14 @@ namespace ConvertNumberIntoWords
             inputNumber = number;
         }
 
-       
+
         public string Next()
         {
-            if(!HasNext()) return "";
+            if (!HasNext()) return "";
 
             string result = "";
 
-            if ( inputNumber.Length >= 3)
+            if (inputNumber.Length >= 3)
             {
                 result = inputNumber.Substring(inputNumber.Length - 3);
                 inputNumber = inputNumber.Substring(0, inputNumber.Length - 3);
@@ -32,9 +32,9 @@ namespace ConvertNumberIntoWords
                 result = inputNumber;
                 inputNumber = "";
             }
-              
+
             return result;
-            
+
         }
 
         public bool HasNext()
@@ -104,3 +104,4 @@ namespace ConvertNumberIntoWords
         }
     }
 }
+

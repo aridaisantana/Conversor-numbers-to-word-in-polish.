@@ -24,17 +24,12 @@ namespace ConvertNumberIntoWords
         public String ConvertIntoWords(string input)
         {
 
+
             StringBuilder builder = new StringBuilder();
-
-
-            string[] decimalParts = input.Split(',');
-            string cardinalPart = decimalParts[0];
-            string decimalPart = decimalParts[1];
-
+ 
 
             List<string> groups = new List<string>();
-            Cardinal cardinal = new Cardinal();
-            StringIterator iterator = new StringIterator(decimalPart);
+            StringIterator iterator = new StringIterator(input);
 
             int number = 0;
             int sHundreds = 0;
@@ -105,21 +100,9 @@ namespace ConvertNumberIntoWords
                 iterator.incrementConjugationIndex();
                 conjugationType = iterator.getConjugationType();
             }
-
-            if(cardinalPart.Length == 1)
-            {
-                if (int.Parse(cardinalPart) != 0)
-                {
-                    groups.Add(cardinal.ConvertIntoWords(cardinalPart) + " i ");
-                }
-            }
-            else
-            {
-                groups.Add(cardinal.ConvertIntoWords(cardinalPart) + " i ");
-            }
-            
+    
             groups.Reverse();
-            groups.Add(getDecimalConjugation(decimalPart.Length, decimalConjugationType));
+            groups.Add(getDecimalConjugation(input.Length, decimalConjugationType));
             groups.ForEach(x => builder.Append(x));
 
             string result = builder.ToString();
@@ -152,7 +135,7 @@ namespace ConvertNumberIntoWords
         {
             string conjugation = "";
 
-            if (decimalConjugationType >=1 && decimalConjugationType <=4)
+            if (decimalConjugationType >=2 && decimalConjugationType <=4)
             {
                 conjugation = DECIMALFIRSTCONJUGATION[decimalConjugationIndex];
             }
