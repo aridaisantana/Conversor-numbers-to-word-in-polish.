@@ -32,8 +32,16 @@ namespace ConvertNumberIntoWords
 
                         () =>{
                             Console.WriteLine("Begin second task...");
-                            int ordinalSingle = int.Parse(numerator.Substring(numerator.Length - 3)) % 10;
-                            Console.WriteLine(new Fractions(new StringIterator(numerator), ordinalSingle).ConvertIntoWords());
+                            int ordinalSingle = 0;
+                            if(denominator.Length >= 3)
+                            {
+                                ordinalSingle= int.Parse(denominator.Substring(denominator.Length - 3)) % 10;
+                            }
+                            else if(denominator.Length != 0)
+                            {
+                                ordinalSingle = int.Parse(denominator) % 10;
+                            }
+                            Console.WriteLine(new Fractions(new StringIterator(denominator), ordinalSingle).ConvertIntoWords());
                         }, 
 
                         () =>
@@ -41,13 +49,11 @@ namespace ConvertNumberIntoWords
                                  Console.WriteLine("Begin third task...");
                                  try
                                  {
-                                     string stringDividedResult = "";
-                                     double dividedResult = 0;
-                                     dividedResult = (double.Parse(numerator) / double.Parse(denominator));
-                                     stringDividedResult = dividedResult.ToString();
-                                     bool isCardinal = !Regex.IsMatch(denominator, @"[+-]?([0-9]+\.[0-9]*|\.[0-9]+)");
+                                     double dividedResult = (double.Parse(numerator) / double.Parse(denominator));
+                                     string stringDividedResult = dividedResult.ToString();
+                                     bool isDecimal = Regex.IsMatch(stringDividedResult, @"[+-]?([0-9]+\.[0-9]*|\.[0-9]+)");
 
-                                     if (isCardinal)
+                                     if (!isDecimal)
                                      {
                                         Parallel.Invoke(
                                             () =>{
