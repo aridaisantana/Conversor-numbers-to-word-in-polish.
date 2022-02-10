@@ -7,7 +7,6 @@ namespace ConvertNumberIntoWords
     {
 
         private string inputNumber;
-        private int conjugationIndex = 0;
         private int conjugationType = 0;
 
         public StringIterator(string number)

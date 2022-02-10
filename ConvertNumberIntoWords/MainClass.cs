@@ -1,5 +1,8 @@
 ﻿using System;
-using ConvertNumberIntoWords;
+using System.Text.RegularExpressions;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ConvertNumberIntoWords
 {
@@ -7,7 +10,86 @@ namespace ConvertNumberIntoWords
     {
         static void Main(string[] args)
         {
-         
+
+            string input = args[0];
+
+            bool containsSlashCharacter = Regex.IsMatch(input, @"\d+\/\d+");
+            if (containsSlashCharacter)
+            {
+                string[] operators = input.Split('/');
+                string numerator = operators[0];
+                string denominator = operators[1];
+                bool isNumeratorCardinal = !Regex.IsMatch(numerator, @"[+-]?([0-9]+\.[0-9]*|\.[0-9]+)");
+                bool isDenominatorCardinal = !Regex.IsMatch(denominator, @"[+-]?([0-9]+\.[0-9]*|\.[0-9]+)");
+
+                if(isNumeratorCardinal && isDenominatorCardinal)
+                {
+                    Parallel.Invoke(
+                        () =>{
+                            Console.WriteLine("Begin first task...");
+                            Console.WriteLine(new Cardinal(new StringIterator(numerator)).ConvertIntoWords());
+                        },  
+
+                        () =>{
+                            Console.WriteLine("Begin second task...");
+                            int ordinalSingle = int.Parse(numerator.Substring(numerator.Length - 3)) % 10;
+                            Console.WriteLine(new Fractions(new StringIterator(numerator), ordinalSingle).ConvertIntoWords());
+                        }, 
+
+                        () =>
+                             {
+                                 Console.WriteLine("Begin third task...");
+                                 try
+                                 {
+                                     string stringDividedResult = "";
+                                     double dividedResult = 0;
+                                     dividedResult = (double.Parse(numerator) / double.Parse(denominator));
+                                     stringDividedResult = dividedResult.ToString();
+                                     bool isCardinal = !Regex.IsMatch(denominator, @"[+-]?([0-9]+\.[0-9]*|\.[0-9]+)");
+
+                                     if (isCardinal)
+                                     {
+                                        Parallel.Invoke(
+                                            () =>{
+                                                Console.WriteLine(new Cardinal(new StringIterator(stringDividedResult)).ConvertIntoWords());
+                                            },
+                                            () =>{
+                                                Console.WriteLine(new Ordinal(new StringIterator(stringDividedResult)).ConvertIntoWords());
+                                            }
+                                        );
+                                     }
+                                     else
+                                     {
+                                         string[] decimalParts = stringDividedResult.Split('.');
+                                         string cardinalPart = decimalParts[0];
+                                         string decimalPart = decimalParts[1];
+                                         Parallel.Invoke(
+                                             () => {
+                                                 Console.WriteLine(new Cardinal(new StringIterator(cardinalPart)).ConvertIntoWords());
+                                             },
+                                             () => {
+                                                 Console.WriteLine(new Decimal(new StringIterator(decimalPart), decimalPart.Length).ConvertIntoWords());
+                                             }
+                                         );
+                                     }
+                                     
+                                     
+                                 }
+                                 catch(Exception e)
+                                 {
+                                     Console.WriteLine("Error of type: " + e.GetType());
+                                 }
+                                
+                             } 
+                         ); 
+
+                }
+
+            }
+            
+            
+
+
             Cardinal cardinal = new Cardinal(new StringIterator("123456789"));
             Console.WriteLine(cardinal.ConvertIntoWords());
 
@@ -31,8 +113,8 @@ namespace ConvertNumberIntoWords
             //Console.WriteLine("13º->" + cardinal.ConvertIntoWords("100003000000000040000000004000000"));
             //Console.WriteLine("13º->" + cardinal.ConvertIntoWords("9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999"));
             //Console.WriteLine("13º->" + cardinal.ConvertIntoWords("0000001"));
-            string input = "34";
-            Decimal decimals = new Decimal(new StringIterator("23"), input.Length);
+            string input2 = "34";
+            Decimal decimals = new Decimal(new StringIterator("23"), input2.Length);
             Multiplicative multiplicative = new Multiplicative();
 
             string number = "12/67";

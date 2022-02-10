@@ -1,5 +1,4 @@
-﻿using System;
-namespace ConvertNumberIntoWords
+﻿namespace ConvertNumberIntoWords
 {
     public interface Numbers
     {
