@@ -56,7 +56,7 @@ namespace ConvertNumberIntoWords
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Ha habido un error de tipo:" + ex.GetType() + " con la cifra ingresada");
+                    Console.WriteLine("Ha habido un error de tipo:" + ex.GetType() + " con Ordinal");
                 }
 
 

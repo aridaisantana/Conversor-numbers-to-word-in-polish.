@@ -11,10 +11,11 @@ namespace ConvertNumberIntoWords
         static void Main(string[] args)
         {
             Conversor conversor = new Conversor();
-            foreach (string result in conversor.Convert("24/12"))
+            foreach (string result in conversor.Convert("3454235E5"))
             {
-                Console.WriteLine(result);
+                Console.WriteLine(result + "\n");
             }
+
         }
     }
 }

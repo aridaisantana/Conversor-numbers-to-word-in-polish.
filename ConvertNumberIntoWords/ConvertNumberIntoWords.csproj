@@ -36,7 +36,6 @@
     <Compile Include="MainClass.cs" />
     <Compile Include="Ordinal.cs" />
     <Compile Include="Decimal.cs" />
-    <Compile Include="Multiplicative.cs" />
     <Compile Include="StringIterator.cs" />
     <Compile Include="Fractions.cs" />
     <Compile Include="IStringIterator.cs" />

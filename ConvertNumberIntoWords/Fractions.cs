@@ -29,8 +29,8 @@ namespace ConvertNumberIntoWords
         protected static string[] SECONDFRACTIONALTENS = { "", "dziesiąte", "dwudzieste", "trzydzieste", "czterdzieste", "pięćdziesiąte", "sześćdziesiąte", "siedemdziesiąte", "osiemdziesiąte", "dziewięćdziesiąte" };
         protected static string[] THIRDFRACTIONALTENS = { "", "dziesiątych", "dwudziestych", "trzydziestych", "czterdziestych", "pięćdziesiątych", "sześćdziesiątych", "siedemdziesiątych", "osiemdziesiątych", "dziewięćdziesiątych" };
 
-        protected static string[] DECIMALFIRSTCONJUGATION = { "setne", "tysięczne", "milionowe", "miliardowe", "bilionowe", "biliardowe" };
-        protected static string[] DECIMALSECONDCONJUGATION = { "setnych", "tysięcznych", "milionowych", "miliardowych", "bilionowych", "biliardowych" };
+        protected static string[] DECIMALFIRSTCONJUGATION = { "setne", "tysięczne", "milionowe", "miliardowe", "bilionowe", "biliardowe", "trylionowe", "tryliardowe", "kwadrylionowe", "kwadryliardowe", "kwintylionowe", "kwintyliardowe", "sekstylion", "sekstyliardowe", "septylionowe", "septyliardowe", "oktylionowe", "oktyliardowe", "nonilionowe", "noniliardowe", "decylionowe", "decyliardowe", "undecylionowe", "undecyliardowe", "dodecylionowe", "dodecyliardowe", "tridecylionowe", "tridecyliardowe", "kwatuordecylionowe", "kwatuordecyliardowe", "kwindecylionowe", "kwindecyliardowe", "seksdecylionowe", "seksdecyliardowe", "septendecylionowe", "septendecyliardowe", "oktodecylionowe", "oktodecyliardowe", "nowemdecylionowe", "nowemdecyliardowe", "wicylionowe", "wicyliardowe", "unwicylionowe", "unwicyliardowe", "dowicylionowe", "dowicyliardowe", "triwicylionowe", "triwicyliardowe" };
+        protected static string[] DECIMALSECONDCONJUGATION = { "setnych", "tysięcznych", "milionowych", "miliardowych", "bilionowych", "biliardowych", "trylionowych", "tryliardowych", "kwadrylionowych", "kwadryliardowych", "kwintylionowych", "kwintyliardowych", "sekstylionowych", "sekstyliardowych", "septylionowych", "septyliardowych", "oktylionowych", "oktyliardowych", "nonilionowych", "noniliardowych", "decylionowych", "decyliardowych", "undecylionowych", "undecyliardowych", "dodecylionowych", "dodecyliardowych", "tridecylionowych", "tridecyliardowych", "kwatuordecylionowych", "kwatuordecyliardowych", "kwindecylionowych", "kwindecyliardowych", "seksdecylionowych", "seksdecyliardowych", "septendecylionowych", "septendecyliardowych", "oktodecylionowych", "oktodecyliardowych", "nowemdecylionowych", "nowemdecyliardowych", "wicylionowych", "wicyliardowych", "unwicylionowych", "unwicyliardowych", "dowicylionowych", "dowicyliardowych", "triwicylionowych", "triwicyliardowych" };
 
         private int ordinalSingle;
         private IStringIterator iterator;
@@ -69,7 +69,7 @@ namespace ConvertNumberIntoWords
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Ha habido un error de tipo:" + ex.GetType() + " con la cifra ingresada");
+                    Console.WriteLine("Ha habido un error de tipo:" + ex.GetType() + " con Fracciones");
                 }
 
 
