@@ -19,15 +19,15 @@ namespace ConvertNumberIntoWords
                 if (isScientificNotation)
                 {
                     inputString = ScientificNotation(inputString);
-                    if (inputString == "Infinity")
+                    if (inputString == "Infinity" || inputString == "error" )
                     {
                         throw new IndexOutOfRangeException();
                     }
                 }
 
-                bool isFractional = Regex.IsMatch(inputString, @"\d+\/\d+");
-                bool isDecimal = Regex.IsMatch(inputString, @"[+-]?([0-9]+\.[0-9]*|\.[0-9]+)");
-                bool isNumerical = Regex.IsMatch(inputString, @"^[0-9]*$");
+                bool isFractional = Regex.IsMatch(inputString, @"[+-]?\d+\/[+-]?\d+");
+                bool isDecimal = Regex.IsMatch(inputString, @"[+-]?([0-9]+\.[0-9]+|\.[0-9]+)");
+                bool isNumerical = Regex.IsMatch(inputString, @"^[+-]?[0-9]*$");
 
                 if (isFractional)
                 {
@@ -68,19 +68,53 @@ namespace ConvertNumberIntoWords
         {
             string[] operators = input.Split('/');
             string numerator = operators[0];
+            string signedNumerator = numerator;
             string denominator = operators[1];
+            string signedDenominator = denominator;
             bool isNumeratorCardinal = !Regex.IsMatch(numerator, @"[+-]?([0-9]+\.[0-9]*|\.[0-9]+)");
-            bool isDenominatorCardinal = !Regex.IsMatch(denominator, @"[+-]?([0-9]+\.[0-9]*|\.[0-9]+)");
+            bool isDenominatorCardinal = !Regex.IsMatch(denominator, @"[+-]?([0-9]+\.[0-9]+|\.[0-9]+)");
 
             if (isNumeratorCardinal && isDenominatorCardinal)
             {
-
                 string numeratorResult = "";
                 string denominatorResult = "";
+                string numeratorSign = "";
+                string denominatorSign = "";
+                string sign = "";
+                
+                if (numerator.Contains("+"))
+                {
+                    numerator = numerator.Remove(0, 1);
+                }else if (numerator.Contains("-"))
+                {
+                    numerator = numerator.Remove(0, 1);
+                    numeratorSign = "minus";
+                }
 
+                if (denominator.Contains("+"))
+                {
+                    denominator = denominator.Remove(0, 1);
+                }
+                else if (denominator.Contains("-"))
+                {
+                    denominator = denominator.Remove(0, 1);
+                    denominatorSign = "minus";
+                }
+
+                if (numeratorSign == "minus" && denominatorSign == "minus")
+                {
+                    sign = "";
+                }else if (numeratorSign == "minus" || denominatorSign == "minus")
+                {
+                    sign = "minus ";
+                }
+
+                
+
+                
                 Parallel.Invoke(
                     () => {
-                        numeratorResult = new Cardinal(new StringIterator(numerator)).ConvertIntoWords();
+                        numeratorResult = sign + new Cardinal(new StringIterator(numerator)).ConvertIntoWords();
                     },
 
                     () => {
@@ -108,7 +142,7 @@ namespace ConvertNumberIntoWords
                 try
                 {
                     double doubleNumerator, doubleDenominator = 0;
-                    if (double.TryParse(numerator, out doubleNumerator) && double.TryParse(denominator, out doubleDenominator))
+                    if (double.TryParse(signedNumerator, out doubleNumerator) && double.TryParse(signedDenominator, out doubleDenominator))
                     {
                         double dividedResult = doubleNumerator / doubleDenominator;
                         string stringDividedResult = dividedResult.ToString();
@@ -117,18 +151,21 @@ namespace ConvertNumberIntoWords
                         {
                             stringDividedResult = ScientificNotation(stringDividedResult);
                         }
-
-                        bool isDivisionDecimal = Regex.IsMatch(stringDividedResult, @"[+-]?([0-9]+\.[0-9]*|\.[0-9]+)");
-                        bool isNumerical = Regex.IsMatch(stringDividedResult, @"^[0-9]*$");
-                        if (isNumerical)
+                        
+                        if(stringDividedResult != "error")
                         {
-                            ValidateIntegerNumbers(stringDividedResult);
-                            IntegerConversion(stringDividedResult);
-                        }
-                        else if(isDivisionDecimal)
-                        {
-                            ValidateDecimalNumbers(stringDividedResult);
-                            DecimalConversion(stringDividedResult);
+                            bool isDivisionDecimal = Regex.IsMatch(stringDividedResult, @"[+-]?([0-9]+\.[0-9]+|\.[0-9]+)");
+                            bool isNumerical = Regex.IsMatch(stringDividedResult, @"^[0-9]*$");
+                            if (isNumerical)
+                            {
+                                ValidateIntegerNumbers(stringDividedResult);
+                                IntegerConversion(stringDividedResult);
+                            }
+                            else if (isDivisionDecimal)
+                            {
+                                ValidateDecimalNumbers(stringDividedResult);
+                                DecimalConversion(stringDividedResult);
+                            }
                         }
                     }
                 }
@@ -154,8 +191,19 @@ namespace ConvertNumberIntoWords
             string decimalPartResult = "";
             Parallel.Invoke(
                 () => {
-
-                    cardinalPartResult = new Cardinal(new StringIterator(cardinalPart)).ConvertIntoWords();
+                    if (cardinalPart.Contains("-"))
+                    {
+                        cardinalPart = cardinalPart.Remove(0, 1);
+                        cardinalPartResult = "minus " + new Cardinal(new StringIterator(cardinalPart)).ConvertIntoWords();
+                    }else if (cardinalPart.Contains("+"))
+                    {
+                        cardinalPart = cardinalPart.Remove(0, 1);
+                        cardinalPartResult = new Cardinal(new StringIterator(cardinalPart)).ConvertIntoWords();
+                    }
+                    else
+                    {
+                        cardinalPartResult = new Cardinal(new StringIterator(cardinalPart)).ConvertIntoWords();
+                    }
                 },
                 () => {
                     decimalPartResult = new Decimal(new StringIterator(decimalPart), decimalPart.Length).ConvertIntoWords();
@@ -166,16 +214,56 @@ namespace ConvertNumberIntoWords
 
         public void IntegerConversion(string input)
         {
-            string cardinal = "";
+        
+
             Parallel.Invoke(
                 () => {
-                    cardinal = new Cardinal(new StringIterator(input)).ConvertIntoWords();
-                    string multiplicative = cardinal + " razy";
-                    results.Add(cardinal);
-                    results.Add(multiplicative);
+
+                    string cardinal = "";
+                    string inputTmp = input;
+
+                    if (inputTmp.Contains("+")){
+
+                        inputTmp = inputTmp.Remove(0, 1);
+                        cardinal = new Cardinal(new StringIterator(inputTmp)).ConvertIntoWords();
+                        results.Add(cardinal);
+                        results.Add(cardinal + " razy");
+
+                    }else if (inputTmp.Contains("-"))
+                    {
+                        inputTmp = inputTmp.Remove(0, 1);
+                        cardinal = new Cardinal(new StringIterator(inputTmp)).ConvertIntoWords();
+                        results.Add("minus " + cardinal);
+                        results.Add("minus " + cardinal + " razy");
+                    }
+                    else
+                    {
+                        cardinal = new Cardinal(new StringIterator(inputTmp)).ConvertIntoWords();
+                        results.Add(cardinal);
+                        results.Add(cardinal + " razy");
+                    }
+                   
                 },
                 () => {
-                    results.Add(new Ordinal(new StringIterator(input)).ConvertIntoWords());
+
+                    string inputTmp = input;
+
+                    if (inputTmp.Contains("+"))
+                    {
+
+                        inputTmp = inputTmp.Remove(0, 1);
+                        results.Add(new Ordinal(new StringIterator(inputTmp)).ConvertIntoWords());
+
+                    }
+                    else if (inputTmp.Contains("-"))
+                    {
+                        inputTmp = inputTmp.Remove(0, 1);
+                        results.Add("minus " + new Ordinal(new StringIterator(inputTmp)).ConvertIntoWords());
+                    }
+                    else
+                    {
+                        results.Add(new Ordinal(new StringIterator(inputTmp)).ConvertIntoWords());
+                    }
                 }
             );
         }
@@ -189,6 +277,16 @@ namespace ConvertNumberIntoWords
             }
             string numerator = operators[0];
             string denominator = operators[1];
+            if(numerator.Contains("+") || numerator.Contains("-"))
+            {
+                numerator = numerator.Remove(0, 1);
+            }
+
+            if (denominator.Contains("+") || denominator.Contains("-"))
+            {
+                denominator = denominator.Remove(0, 1);
+            }
+
             if (numerator.Length > 144 || denominator.Length > 144)
             {
                 throw new IndexOutOfRangeException();
@@ -204,8 +302,18 @@ namespace ConvertNumberIntoWords
             }
             string cardinalPart = decimalParts[0];
             string decimalPart = decimalParts[1];
-    
-            if(cardinalPart.Length > 144 || decimalPart.Length > 143)
+
+            if (cardinalPart.Contains("+") || cardinalPart.Contains("-"))
+            {
+                cardinalPart = cardinalPart.Remove(0, 1);
+            }
+
+            if (decimalPart.Contains("+") || decimalPart.Contains("-"))
+            {
+                decimalPart = decimalPart.Remove(0, 1);
+            }
+
+            if (cardinalPart.Length > 144 || decimalPart.Length > 143)
             {
                 throw new IndexOutOfRangeException();
             }
@@ -214,7 +322,13 @@ namespace ConvertNumberIntoWords
 
         public void ValidateIntegerNumbers(string input)
         {
-            if(input.Length > 144)
+            string inputTmp = input;
+            if (inputTmp.Contains("+") || inputTmp.Contains("-"))
+            {
+                inputTmp = inputTmp.Remove(0, 1);
+            }
+
+            if (inputTmp.Length > 144)
             {
                 throw new IndexOutOfRangeException();
             }
@@ -229,20 +343,59 @@ namespace ConvertNumberIntoWords
 
             if (secondPart.Contains("+"))
             {
-                result = double.Parse(firstPart) * (Math.Pow(10, double.Parse(secondPart.Remove(0, 1))));
+                if (firstPart.Contains("+"))
+                {
+                    firstPart = firstPart.Remove(0, 1);
+                    result = double.Parse(firstPart) * (Math.Pow(10, double.Parse(secondPart.Remove(0, 1))));
+                }else if (firstPart.Contains("-"))
+                {
+                    firstPart = firstPart.Remove(0, 1);
+                    result = -1 * double.Parse(firstPart) * (Math.Pow(10, double.Parse(secondPart.Remove(0, 1))));
+                }
+                else
+                {
+                    result = double.Parse(firstPart) * (Math.Pow(10, double.Parse(secondPart.Remove(0, 1))));
+                }
             }
             else if (secondPart.Contains("-"))
             {
-               result = double.Parse(firstPart) * (Math.Pow(10, -1 * double.Parse(secondPart.Remove(0, 1))));
+                if (firstPart.Contains("+"))
+                {
+                    firstPart = firstPart.Remove(0, 1);
+                    result = double.Parse(firstPart) * (Math.Pow(10, -1 * double.Parse(secondPart.Remove(0, 1))));
+                }
+                else if (firstPart.Contains("-"))
+                {
+                    firstPart = firstPart.Remove(0, 1);
+                    result = -1 * double.Parse(firstPart) * (Math.Pow(10, -1 * double.Parse(secondPart.Remove(0, 1))));
+                }
+                else
+                {
+                    result = double.Parse(firstPart) * (Math.Pow(10, -1 * double.Parse(secondPart.Remove(0, 1))));
+                }
             }
             else
             {
-                result = double.Parse(firstPart) * (Math.Pow(10, double.Parse(secondPart)));
+                if (firstPart.Contains("+"))
+                {
+                    firstPart = firstPart.Remove(0, 1);
+                    result = double.Parse(firstPart) * (Math.Pow(10, double.Parse(secondPart)));
+                }
+                else if (firstPart.Contains("-"))
+                {
+                    firstPart = firstPart.Remove(0, 1);
+                    result = -1 * double.Parse(firstPart) * (Math.Pow(10, double.Parse(secondPart)));
+                }
+                else
+                {
+                    result = double.Parse(firstPart) * (Math.Pow(10, double.Parse(secondPart)));
+                }
             }
 
-            if (result.ToString().Contains("E")) return " ";
+            if (result.ToString().Contains("E")) return "error";
             return result.ToString();
         }
-
     }
+
+
 }

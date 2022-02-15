@@ -11,7 +11,7 @@ namespace ConvertNumberIntoWords
         static void Main(string[] args)
         {
             Conversor conversor = new Conversor();
-            foreach (string result in conversor.Convert("3454235E5"))
+            foreach (string result in conversor.Convert("23E3"))
             {
                 Console.WriteLine(result + "\n");
             }
