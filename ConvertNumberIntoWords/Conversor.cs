@@ -78,40 +78,18 @@ namespace ConvertNumberIntoWords
             {
                 string numeratorResult = "";
                 string denominatorResult = "";
-                string numeratorSign = "";
-                string denominatorSign = "";
+                string [] proccessedSign = new string[] { };
+                if(Regex.IsMatch(numerator, @"[+-]") || Regex.IsMatch(denominator, @"[+-]"))
+                {
+                    proccessedSign = new SignedNumber().ProcessFractionalSignedNumber(numerator, denominator);
+                }
                 string sign = "";
-                
-                if (numerator.Contains("+"))
+                if (proccessedSign.Length > 0)
                 {
-                    numerator = numerator.Remove(0, 1);
-                }else if (numerator.Contains("-"))
-                {
-                    numerator = numerator.Remove(0, 1);
-                    numeratorSign = "minus";
-                }
-
-                if (denominator.Contains("+"))
-                {
-                    denominator = denominator.Remove(0, 1);
-                }
-                else if (denominator.Contains("-"))
-                {
-                    denominator = denominator.Remove(0, 1);
-                    denominatorSign = "minus";
-                }
-
-                if (numeratorSign == "minus" && denominatorSign == "minus")
-                {
-                    sign = "";
-                }else if (numeratorSign == "minus" || denominatorSign == "minus")
-                {
-                    sign = "minus ";
-                }
-
-                
-
-                
+                    numerator = proccessedSign[0];
+                    denominator = proccessedSign[1];
+                    sign = proccessedSign[2];
+                }    
                 Parallel.Invoke(
                     () => {
                         numeratorResult = sign + new Cardinal(new StringIterator(numerator)).ConvertIntoWords();
@@ -187,23 +165,22 @@ namespace ConvertNumberIntoWords
             string[] decimalParts = input.Split('.');
             string cardinalPart = decimalParts[0];
             string decimalPart = decimalParts[1];
+            string[] proccessedSign = new string[] { };
+            if (Regex.IsMatch(cardinalPart, @"[+-]"))
+            {
+                proccessedSign = new SignedNumber().ProcessSignedNumber(cardinalPart);
+            }
+            string sign = "";
+            if (proccessedSign.Length > 0)
+            {
+                cardinalPart = proccessedSign[0];
+                sign = proccessedSign[1];
+            }
             string cardinalPartResult = "";
             string decimalPartResult = "";
             Parallel.Invoke(
                 () => {
-                    if (cardinalPart.Contains("-"))
-                    {
-                        cardinalPart = cardinalPart.Remove(0, 1);
-                        cardinalPartResult = "minus " + new Cardinal(new StringIterator(cardinalPart)).ConvertIntoWords();
-                    }else if (cardinalPart.Contains("+"))
-                    {
-                        cardinalPart = cardinalPart.Remove(0, 1);
-                        cardinalPartResult = new Cardinal(new StringIterator(cardinalPart)).ConvertIntoWords();
-                    }
-                    else
-                    {
-                        cardinalPartResult = new Cardinal(new StringIterator(cardinalPart)).ConvertIntoWords();
-                    }
+                  cardinalPartResult = sign + new Cardinal(new StringIterator(cardinalPart)).ConvertIntoWords();
                 },
                 () => {
                     decimalPartResult = new Decimal(new StringIterator(decimalPart), decimalPart.Length).ConvertIntoWords();
@@ -214,56 +191,25 @@ namespace ConvertNumberIntoWords
 
         public void IntegerConversion(string input)
         {
-        
-
+            string inputTmp = input;
+            string[] proccessedSign = new string[] { };
+            if (Regex.IsMatch(inputTmp, @"[+-]"))
+            {
+                proccessedSign = new SignedNumber().ProcessSignedNumber(inputTmp);
+            }
+            string sign = "";
+            if (proccessedSign.Length > 0)
+            {
+                inputTmp = proccessedSign[0];
+                sign = proccessedSign[1];
+            }
             Parallel.Invoke(
                 () => {
-
-                    string cardinal = "";
-                    string inputTmp = input;
-
-                    if (inputTmp.Contains("+")){
-
-                        inputTmp = inputTmp.Remove(0, 1);
-                        cardinal = new Cardinal(new StringIterator(inputTmp)).ConvertIntoWords();
-                        results.Add(cardinal);
-                        results.Add(cardinal + " razy");
-
-                    }else if (inputTmp.Contains("-"))
-                    {
-                        inputTmp = inputTmp.Remove(0, 1);
-                        cardinal = new Cardinal(new StringIterator(inputTmp)).ConvertIntoWords();
-                        results.Add("minus " + cardinal);
-                        results.Add("minus " + cardinal + " razy");
-                    }
-                    else
-                    {
-                        cardinal = new Cardinal(new StringIterator(inputTmp)).ConvertIntoWords();
-                        results.Add(cardinal);
-                        results.Add(cardinal + " razy");
-                    }
-                   
+                    results.Add(sign + new Cardinal(new StringIterator(inputTmp)).ConvertIntoWords());
+                    results.Add(sign + new Multiplicative(new Cardinal(new StringIterator(inputTmp))).ConvertIntoWords());
                 },
                 () => {
-
-                    string inputTmp = input;
-
-                    if (inputTmp.Contains("+"))
-                    {
-
-                        inputTmp = inputTmp.Remove(0, 1);
-                        results.Add(new Ordinal(new StringIterator(inputTmp)).ConvertIntoWords());
-
-                    }
-                    else if (inputTmp.Contains("-"))
-                    {
-                        inputTmp = inputTmp.Remove(0, 1);
-                        results.Add("minus " + new Ordinal(new StringIterator(inputTmp)).ConvertIntoWords());
-                    }
-                    else
-                    {
-                        results.Add(new Ordinal(new StringIterator(inputTmp)).ConvertIntoWords());
-                    }
+                    results.Add(sign + new Ordinal(new StringIterator(inputTmp)).ConvertIntoWords());
                 }
             );
         }
@@ -313,7 +259,7 @@ namespace ConvertNumberIntoWords
                 decimalPart = decimalPart.Remove(0, 1);
             }
 
-            if (cardinalPart.Length > 144 || decimalPart.Length > 143)
+            if (cardinalPart.Length > 144 || decimalPart.Length > 144)
             {
                 throw new IndexOutOfRangeException();
             }

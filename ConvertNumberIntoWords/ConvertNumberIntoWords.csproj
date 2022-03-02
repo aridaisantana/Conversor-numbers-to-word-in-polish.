@@ -40,6 +40,8 @@
     <Compile Include="Fractions.cs" />
     <Compile Include="IStringIterator.cs" />
     <Compile Include="Conversor.cs" />
+    <Compile Include="Multiplicative.cs" />
+    <Compile Include="SignedNumber.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

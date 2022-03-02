@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Text.RegularExpressions;
-using System.Collections;
-using System.Threading.Tasks;
 
 namespace ConvertNumberIntoWords
 {
@@ -11,7 +8,7 @@ namespace ConvertNumberIntoWords
         static void Main(string[] args)
         {
             Conversor conversor = new Conversor();
-            foreach (string result in conversor.Convert("23E3"))
+            foreach (string result in conversor.Convert("-2.999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999"))
             {
                 Console.WriteLine(result + "\n");
             }
