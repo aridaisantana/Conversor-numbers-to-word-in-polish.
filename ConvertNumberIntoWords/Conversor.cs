@@ -9,8 +9,14 @@ namespace ConvertNumberIntoWords
     {
 
         private ArrayList results = new ArrayList();
+        private string input = "";
 
-        public ArrayList Convert(string input)
+        public Conversor(string input)
+        {
+            this.input = input;
+        }
+
+        public ArrayList Convert()
         {
             try
             {
@@ -18,35 +24,35 @@ namespace ConvertNumberIntoWords
                 bool isScientificNotation = Regex.IsMatch(input, @"[+-]?\d(\.\d+)?[Ee][+-]?\d+");
                 if (isScientificNotation)
                 {
-                    inputString = ScientificNotation(inputString);
-                    if (inputString == "Infinity" || inputString == "error" )
+                    inputString = new ScientificNotation().Convert(inputString);
+                    if (inputString == "Infinity" || inputString == "error")
                     {
                         throw new IndexOutOfRangeException();
                     }
                 }
 
-                bool isFractional = Regex.IsMatch(inputString, @"[+-]?\d+\/[+-]?\d+");
-                bool isDecimal = Regex.IsMatch(inputString, @"[+-]?([0-9]+\.[0-9]+|\.[0-9]+)");
-                bool isNumerical = Regex.IsMatch(inputString, @"^[+-]?[0-9]*$");
+                if(new Validator().Validate(inputString))
+                {
+                    bool isFractional = Regex.IsMatch(inputString, @"[+-]?\d+\/[+-]?\d+");
+                    bool isDecimal = Regex.IsMatch(inputString, @"[+-]?([0-9]+\.[0-9]+|\.[0-9]+)");
+                    bool isNumerical = Regex.IsMatch(inputString, @"^[+-]?[0-9]*$");
 
-                if (isFractional)
-                {
-                    ValidateFractionalNumbers(inputString);
-                    FractionalConversion(inputString);
-                }
-                else if (isDecimal)
-                {
-                    ValidateDecimalNumbers(inputString);
-                    DecimalConversion(inputString);
-                }
-                else if (isNumerical)
-                {
-                    ValidateIntegerNumbers(inputString);
-                    IntegerConversion(inputString);
-                }
-                else
-                {
-                    throw new FormatException();
+                    if (isFractional)
+                    {
+                        FractionalConversion(inputString);
+                    }
+                    else if (isDecimal)
+                    {
+                        DecimalConversion(inputString);
+                    }
+                    else if (isNumerical)
+                    {
+                        IntegerConversion(inputString);
+                    }
+                    else
+                    {
+                        throw new FormatException();
+                    }
                 }
             }
             catch(Exception e)
@@ -64,7 +70,7 @@ namespace ConvertNumberIntoWords
             return results;
         }
 
-        public void FractionalConversion(string input)
+        private void FractionalConversion(string input)
         {
             string[] operators = input.Split('/');
             string numerator = operators[0];
@@ -127,7 +133,7 @@ namespace ConvertNumberIntoWords
                         bool isScientificNotation = Regex.IsMatch(stringDividedResult, @"[+-]?\d(\.\d+)?[Ee][+-]?\d+");
                         if (isScientificNotation)
                         {
-                            stringDividedResult = ScientificNotation(stringDividedResult);
+                            stringDividedResult = new ScientificNotation().Convert(stringDividedResult);
                         }
                         
                         if(stringDividedResult != "error")
@@ -136,13 +142,11 @@ namespace ConvertNumberIntoWords
                             bool isNumerical = Regex.IsMatch(stringDividedResult, @"^[0-9]*$");
                             if (isNumerical)
                             {
-                                ValidateIntegerNumbers(stringDividedResult);
-                                IntegerConversion(stringDividedResult);
+                                if(new Validator().Validate(stringDividedResult)) IntegerConversion(stringDividedResult);
                             }
                             else if (isDivisionDecimal)
                             {
-                                ValidateDecimalNumbers(stringDividedResult);
-                                DecimalConversion(stringDividedResult);
+                                if(new Validator().Validate(stringDividedResult)) DecimalConversion(stringDividedResult);
                             }
                         }
                     }
@@ -160,7 +164,7 @@ namespace ConvertNumberIntoWords
             }
         }
 
-        public void DecimalConversion(string input)
+        private void DecimalConversion(string input)
         {
             string[] decimalParts = input.Split('.');
             string cardinalPart = decimalParts[0];
@@ -189,159 +193,35 @@ namespace ConvertNumberIntoWords
             results.Add(cardinalPartResult + " " + decimalPartResult);
         }
 
-        public void IntegerConversion(string input)
+        private void IntegerConversion(string input)
         {
             string inputTmp = input;
-            string[] proccessedSign = new string[] { };
-            if (Regex.IsMatch(inputTmp, @"[+-]"))
-            {
-                proccessedSign = new SignedNumber().ProcessSignedNumber(inputTmp);
-            }
-            string sign = "";
-            if (proccessedSign.Length > 0)
-            {
-                inputTmp = proccessedSign[0];
-                sign = proccessedSign[1];
-            }
-            Parallel.Invoke(
-                () => {
-                    results.Add(sign + new Cardinal(new StringIterator(inputTmp)).ConvertIntoWords());
-                    results.Add(sign + new Multiplicative(new Cardinal(new StringIterator(inputTmp))).ConvertIntoWords());
-                },
-                () => {
-                    results.Add(sign + new Ordinal(new StringIterator(inputTmp)).ConvertIntoWords());
-                }
-            );
-        }
-
-        public void ValidateFractionalNumbers(string input)
-        {
-            string[] operators = input.Split('/');
-            if (operators.Length == 0)
-            {
-                throw new FormatException();
-            }
-            string numerator = operators[0];
-            string denominator = operators[1];
-            if(numerator.Contains("+") || numerator.Contains("-"))
-            {
-                numerator = numerator.Remove(0, 1);
-            }
-
-            if (denominator.Contains("+") || denominator.Contains("-"))
-            {
-                denominator = denominator.Remove(0, 1);
-            }
-
-            if (numerator.Length > 144 || denominator.Length > 144)
-            {
-                throw new IndexOutOfRangeException();
-            }
-        }
-
-        public void ValidateDecimalNumbers(string input)
-        {
-            string[] decimalParts = input.Split('.');
-            if (decimalParts.Length == 0)
-            {
-                throw new FormatException();
-            }
-            string cardinalPart = decimalParts[0];
-            string decimalPart = decimalParts[1];
-
-            if (cardinalPart.Contains("+") || cardinalPart.Contains("-"))
-            {
-                cardinalPart = cardinalPart.Remove(0, 1);
-            }
-
-            if (decimalPart.Contains("+") || decimalPart.Contains("-"))
-            {
-                decimalPart = decimalPart.Remove(0, 1);
-            }
-
-            if (cardinalPart.Length > 144 || decimalPart.Length > 144)
-            {
-                throw new IndexOutOfRangeException();
-            }
-
-        }
-
-        public void ValidateIntegerNumbers(string input)
-        {
-            string inputTmp = input;
-            if (inputTmp.Contains("+") || inputTmp.Contains("-"))
-            {
-                inputTmp = inputTmp.Remove(0, 1);
-            }
-
-            if (inputTmp.Length > 144)
-            {
-                throw new IndexOutOfRangeException();
-            }
-        }
-
-        public string ScientificNotation(string input)
-        {
-            string [] scientificNotationParts = input.Split('E');
-            string firstPart = scientificNotationParts[0];
-            string secondPart = scientificNotationParts[1];
-            double result = 0;
-
-            if (secondPart.Contains("+"))
-            {
-                if (firstPart.Contains("+"))
-                {
-                    firstPart = firstPart.Remove(0, 1);
-                    result = double.Parse(firstPart) * (Math.Pow(10, double.Parse(secondPart.Remove(0, 1))));
-                }else if (firstPart.Contains("-"))
-                {
-                    firstPart = firstPart.Remove(0, 1);
-                    result = -1 * double.Parse(firstPart) * (Math.Pow(10, double.Parse(secondPart.Remove(0, 1))));
-                }
-                else
-                {
-                    result = double.Parse(firstPart) * (Math.Pow(10, double.Parse(secondPart.Remove(0, 1))));
-                }
-            }
-            else if (secondPart.Contains("-"))
-            {
-                if (firstPart.Contains("+"))
-                {
-                    firstPart = firstPart.Remove(0, 1);
-                    result = double.Parse(firstPart) * (Math.Pow(10, -1 * double.Parse(secondPart.Remove(0, 1))));
-                }
-                else if (firstPart.Contains("-"))
-                {
-                    firstPart = firstPart.Remove(0, 1);
-                    result = -1 * double.Parse(firstPart) * (Math.Pow(10, -1 * double.Parse(secondPart.Remove(0, 1))));
-                }
-                else
-                {
-                    result = double.Parse(firstPart) * (Math.Pow(10, -1 * double.Parse(secondPart.Remove(0, 1))));
-                }
+            if (inputTmp.Length == 1 && int.Parse(inputTmp) == 0) {
+                results.Add("zero");
             }
             else
             {
-                if (firstPart.Contains("+"))
+                string[] proccessedSign = new string[] { };
+                if (Regex.IsMatch(inputTmp, @"[+-]"))
                 {
-                    firstPart = firstPart.Remove(0, 1);
-                    result = double.Parse(firstPart) * (Math.Pow(10, double.Parse(secondPart)));
+                    proccessedSign = new SignedNumber().ProcessSignedNumber(inputTmp);
                 }
-                else if (firstPart.Contains("-"))
+                string sign = "";
+                if (proccessedSign.Length > 0)
                 {
-                    firstPart = firstPart.Remove(0, 1);
-                    result = -1 * double.Parse(firstPart) * (Math.Pow(10, double.Parse(secondPart)));
+                    inputTmp = proccessedSign[0];
+                    sign = proccessedSign[1];
                 }
-                else
-                {
-                    result = double.Parse(firstPart) * (Math.Pow(10, double.Parse(secondPart)));
-                }
+                Parallel.Invoke(
+                    () => {
+                        results.Add(sign + new Cardinal(new StringIterator(inputTmp)).ConvertIntoWords());
+                        results.Add(sign + new Multiplicative(new Cardinal(new StringIterator(inputTmp))).ConvertIntoWords());
+                    },
+                    () => {
+                        results.Add(sign + new Ordinal(new StringIterator(inputTmp)).ConvertIntoWords());
+                    }
+                );
             }
-
-            if (result.ToString().Contains("E")) return "error";
-            return result.ToString();
         }
     }
-
-
 }

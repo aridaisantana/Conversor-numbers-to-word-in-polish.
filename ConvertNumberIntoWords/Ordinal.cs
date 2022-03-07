@@ -138,7 +138,7 @@ namespace ConvertNumberIntoWords
             return result;
         }
 
-        public string getConjugation (int conjugationIndex, int conjugationType )
+        private string getConjugation (int conjugationIndex, int conjugationType )
         {
             string conjugation = "";
 
@@ -158,7 +158,7 @@ namespace ConvertNumberIntoWords
             return conjugation;
         }
 
-        public static bool IsEmpty<T>(List<T> list)
+        private static bool IsEmpty<T>(List<T> list)
         {
             if (list == null)
             {

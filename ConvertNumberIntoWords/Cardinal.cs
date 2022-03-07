@@ -96,7 +96,7 @@ namespace ConvertNumberIntoWords
             return result;
         }
 
-        public string getConjugation(int conjugationIndex, int conjugationType)
+        private string getConjugation(int conjugationIndex, int conjugationType)
         {
             string conjugation = "";
 

@@ -42,6 +42,8 @@
     <Compile Include="Conversor.cs" />
     <Compile Include="Multiplicative.cs" />
     <Compile Include="SignedNumber.cs" />
+    <Compile Include="ScientificNotation.cs" />
+    <Compile Include="Validator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -126,7 +126,7 @@ namespace ConvertNumberIntoWords
             return conjugation;
         }
 
-        public string getDecimalConjugation(int decimalConjugationIndex, int decimalConjugationType)
+        private string getDecimalConjugation(int decimalConjugationIndex, int decimalConjugationType)
         {
             string conjugation = "";
 
@@ -142,7 +142,7 @@ namespace ConvertNumberIntoWords
             return conjugation;
         }
 
-        public static bool IsEmpty<T>(List<T> list)
+        private static bool IsEmpty<T>(List<T> list)
         {
             if (list == null)
             {
