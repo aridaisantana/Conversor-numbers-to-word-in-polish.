@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using System.Collections;
+using System.Collections.Concurrent;
 using System.Threading.Tasks;
 
 namespace ConvertNumberIntoWords
@@ -8,19 +8,21 @@ namespace ConvertNumberIntoWords
     public class Conversor
     {
 
-        private ArrayList results = new ArrayList();
+        private ConcurrentDictionary<string, string> results;
         private string input = "";
 
         public Conversor(string input)
         {
+            this.results = new ConcurrentDictionary<string, string>();
             this.input = input;
         }
 
-        public ArrayList Convert()
+        public ConcurrentDictionary<string, string> Convert()
         {
             try
             {
                 string inputString = input;
+                //Check if is Scientific Notation and convert it back to numeric format.
                 bool isScientificNotation = Regex.IsMatch(input, @"[+-]?\d(\.\d+)?[Ee][+-]?\d+");
                 if (isScientificNotation)
                 {
@@ -30,7 +32,7 @@ namespace ConvertNumberIntoWords
                         throw new IndexOutOfRangeException();
                     }
                 }
-
+                
                 if(new Validator().Validate(inputString))
                 {
                     bool isFractional = Regex.IsMatch(inputString, @"[+-]?\d+\/[+-]?\d+");
@@ -85,25 +87,27 @@ namespace ConvertNumberIntoWords
                 string numeratorResult = "";
                 string denominatorResult = "";
                 string [] proccessedSign = new string[] { };
-                if(Regex.IsMatch(numerator, @"[+-]") || Regex.IsMatch(denominator, @"[+-]"))
+
+                //If there is any sign operator we process it accordignly.
+                if (Regex.IsMatch(numerator, @"[+-]") || Regex.IsMatch(denominator, @"[+-]"))
                 {
                     proccessedSign = new SignedNumber().ProcessFractionalSignedNumber(numerator, denominator);
                 }
                 string sign = "";
+            
                 if (proccessedSign.Length > 0)
                 {
                     numerator = proccessedSign[0];
                     denominator = proccessedSign[1];
                     sign = proccessedSign[2];
-                }    
-                Parallel.Invoke(
-                    () => {
-                        numeratorResult = sign + new Cardinal(new StringIterator(numerator)).ConvertIntoWords();
-                    },
-
-                    () => {
-                        try
-                        {
+                }
+                try
+                {
+                    Parallel.Invoke(
+                        () => {
+                            numeratorResult = sign + new Cardinal(new StringIterator(numerator)).ConvertIntoWords();
+                        },
+                        () => {
                             int ordinalSingle = 0;
                             if (denominator.Length >= 3)
                             {
@@ -113,16 +117,15 @@ namespace ConvertNumberIntoWords
                             {
                                 ordinalSingle = int.Parse(denominator) % 10;
                             }
-                            denominatorResult = new Fractions(new StringIterator(denominator), ordinalSingle).ConvertIntoWords();
+                                denominatorResult = new Fractions(new StringIterator(denominator), ordinalSingle).ConvertIntoWords();
                         }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine("Ha ocurrido un error de tipo:" + e.GetType());
-                        }
-
-                    }
-                );
-                results.Add(numeratorResult + " " + denominatorResult);
+                    );
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Ha ocurrido un error de tipo:" + e.GetType());
+                }
+                results["Fraction"] = numeratorResult + " " + denominatorResult;
                 try
                 {
                     double doubleNumerator, doubleDenominator = 0;
@@ -139,7 +142,7 @@ namespace ConvertNumberIntoWords
                         if(stringDividedResult != "error")
                         {
                             bool isDivisionDecimal = Regex.IsMatch(stringDividedResult, @"[+-]?([0-9]+\.[0-9]+|\.[0-9]+)");
-                            bool isNumerical = Regex.IsMatch(stringDividedResult, @"^[0-9]*$");
+                            bool isNumerical = Regex.IsMatch(stringDividedResult, @"^[+-]?[0-9]*$");
                             if (isNumerical)
                             {
                                 if(new Validator().Validate(stringDividedResult)) IntegerConversion(stringDividedResult);
@@ -170,6 +173,7 @@ namespace ConvertNumberIntoWords
             string cardinalPart = decimalParts[0];
             string decimalPart = decimalParts[1];
             string[] proccessedSign = new string[] { };
+            //If there is any sign operator we process it accordingly.
             if (Regex.IsMatch(cardinalPart, @"[+-]"))
             {
                 proccessedSign = new SignedNumber().ProcessSignedNumber(cardinalPart);
@@ -182,22 +186,29 @@ namespace ConvertNumberIntoWords
             }
             string cardinalPartResult = "";
             string decimalPartResult = "";
-            Parallel.Invoke(
-                () => {
-                  cardinalPartResult = sign + new Cardinal(new StringIterator(cardinalPart)).ConvertIntoWords();
-                },
-                () => {
-                    decimalPartResult = new Decimal(new StringIterator(decimalPart), decimalPart.Length).ConvertIntoWords();
-                }
-            );
-            results.Add(cardinalPartResult + " " + decimalPartResult);
+            try
+            {
+                Parallel.Invoke(
+                    () => {
+                        cardinalPartResult = sign + new Cardinal(new StringIterator(cardinalPart)).ConvertIntoWords();
+                    },
+                    () => {
+                        decimalPartResult = new Decimal(new StringIterator(decimalPart), decimalPart.Length).ConvertIntoWords();
+                    }
+                );
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Ha ocurrido un error de tipo:" + e.GetType());
+            }
+            results["Decimal"] = cardinalPartResult + " " + decimalPartResult;
         }
 
         private void IntegerConversion(string input)
         {
             string inputTmp = input;
             if (inputTmp.Length == 1 && int.Parse(inputTmp) == 0) {
-                results.Add("zero");
+                results["Cardinal"] = "zero";
             }
             else
             {
@@ -212,15 +223,30 @@ namespace ConvertNumberIntoWords
                     inputTmp = proccessedSign[0];
                     sign = proccessedSign[1];
                 }
-                Parallel.Invoke(
-                    () => {
-                        results.Add(sign + new Cardinal(new StringIterator(inputTmp)).ConvertIntoWords());
-                        results.Add(sign + new Multiplicative(new Cardinal(new StringIterator(inputTmp))).ConvertIntoWords());
-                    },
-                    () => {
-                        results.Add(sign + new Ordinal(new StringIterator(inputTmp)).ConvertIntoWords());
+                try
+                {
+                    if(sign != "")
+                    {
+                        results["Cardinal"] = sign + new Cardinal(new StringIterator(inputTmp)).ConvertIntoWords();
                     }
-                );
+                    else
+                    {
+                        Parallel.Invoke(
+                        () => {
+                          results["Cardinal"] = sign + new Cardinal(new StringIterator(inputTmp)).ConvertIntoWords();
+                          results["Multiplicativo"] = sign + new Multiplicative(new Cardinal(new StringIterator(inputTmp))).ConvertIntoWords();
+                        },
+                        () => {
+                          results["Ordinal"] = sign + new Ordinal(new StringIterator(inputTmp)).ConvertIntoWords();
+                        }
+                        );
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Ha ocurrido un error de tipo:" + e.GetType());
+                }
+
             }
         }
     }
