@@ -8,7 +8,7 @@ namespace ConvertNumberIntoWords
         
         static void Main(string[] args)
         {
-            Conversor conversor = new Conversor("-999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999/999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999");
+            Conversor conversor = new Conversor("23E-2");
             foreach (KeyValuePair<string, string> result in conversor.Convert())
             {
                 Console.WriteLine(result.Key + ":" + result.Value);

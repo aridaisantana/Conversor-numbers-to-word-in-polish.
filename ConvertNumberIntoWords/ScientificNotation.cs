@@ -16,7 +16,7 @@ namespace ConvertNumberIntoWords
             string secondPart = scientificNotationParts[1];
             double result = 0;
             string firstPartSign = Regex.Match(firstPart, @"[+-]").ToString();
-            string secondPartSign = Regex.Match(firstPart, @"[+-]").ToString();
+            string secondPartSign = Regex.Match(secondPart, @"[+-]").ToString();
 
             if (secondPartSign == "+")
             {
