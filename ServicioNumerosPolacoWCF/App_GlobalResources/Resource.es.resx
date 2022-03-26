@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CabeceraNumeroFormateado2" xml:space="preserve">
+    <value>¿Cómo se escribe el número </value>
+  </data>
+  <data name="CabeceraNumeroFormateado3" xml:space="preserve">
+    <value> en letras en polaco?</value>
+  </data>
+  <data name="CardinalNotas1" xml:space="preserve">
+    <value>Las cifras del cero al nueve tienen nombres específicos: zero [0], jeden [1], dwa [2], trzy [3], cztery [4], pięć [5], sześć [6], siedem [7], osiem [8] y dziewięć [9].</value>
+  </data>
+  <data name="CardinalNotas2" xml:space="preserve">
+    <value>Las decenas se forman poniendo la cifra multiplicadora antes una forma de la palabra para diez (dziesięć, dzieścia, dzieści o dziesiąt), excepto para diez mismo: dziesięć [10], dwadzieścia [20], trzydzieści [30], czterdzieści [40], pięćdziesiąt [50], sześćdziesiąt [60], siedemdziesiąt [70], osiemdziesiąt [80] y dziewięćdziesiąt [90].</value>
+  </data>
+  <data name="CardinalNotas3" xml:space="preserve">
+    <value>Los números del once al diecinueve se forman empezando por la unidad, directamente seguida por naście, de na (y) y dziesięć (diez): jedenaście [11] (literalemente, uno y diez), dwanaście [12], trzynaście [13], czternaście [14], piętnaście [15], szesnaście [16], siedemnaście [17], osiemnaście [18] y dziewiętnaście [19].</value>
+  </data>
+  <data name="CardinalNotas4" xml:space="preserve">
+    <value>Los números compuestos más grandes que veinte se forman empezando por la decena, y luego la unidad separada por un espacio (ejemplo: dwadzieścia jeden [21], pięćdziesiąt trzy [53]).</value>
+  </data>
+  <data name="CardinalNotas5" xml:space="preserve">
+    <value>Las centenas se forman poniendo la cifra multiplicadora antes una forma de la palabra para cien (ście, sta o set) sin espacio, excepto para cien mismo: sto [100], dwieście [200], trzysta [300], czterysta [400], pięćset [500], sześćset [600], siedemset [700], osiemset [800] y dziewięćset [900].</value>
+  </data>
+  <data name="CardinalNotas6" xml:space="preserve">
+    <value>Los miles se forman poniendo la cifra multiplicadora antes una forma de la palabra para mil (tysiąc, tysiące o tysięcy) separada por un espacio, excepto para mil: tysiąc [1 000], dwa tysiące [2 000], trzy tysiące [3 000], cztery tysiące [4 000], pięć tysięcy [5 000], sześć tysięcy [6 000], siedem tysięcy [7 000], osiem tysięcy [8 000] y dziewięć tysięcy [9 000].</value>
+  </data>
+  <data name="CardinalNotas7" xml:space="preserve">
+    <value>La lengua polaca usa la convención de nomenclatura de la escala larga. Las palabras para los números grandes son: milion (millón, 106), miliard (mil millones, 109), bilion (billón, 1012), biliard (mil billones, 1015), trylion (trillón, 1018), tryliard (mil trillones, 1021), kwadrylion (quadrillón, 1024)…</value>
+  </data>
+  <data name="CardinalTipo" xml:space="preserve">
+    <value>Cardinal</value>
+  </data>
+  <data name="DecimalTipo" xml:space="preserve">
+    <value>Decimal</value>
+  </data>
+  <data name="Ejemplos" xml:space="preserve">
+    <value>Ejemplos</value>
+  </data>
+  <data name="ERROR" xml:space="preserve">
+    <value>ERROR</value>
+  </data>
+  <data name="FraccionarioTipo" xml:space="preserve">
+    <value>Fraccionario</value>
+  </data>
+  <data name="Lista1" xml:space="preserve">
+    <value>Se muestra el texto cardinal, ordinal, fraccionario, multiplicativo, romano y más... correspondiente al número escrito.</value>
+  </data>
+  <data name="Lista10" xml:space="preserve">
+    <value>El numerador es demasiado grande.</value>
+  </data>
+  <data name="Lista11" xml:space="preserve">
+    <value>La parte decimal es demasiado grande.</value>
+  </data>
+  <data name="Lista12" xml:space="preserve">
+    <value>&lt;b&gt;NO escriba el número con letras, excepto si es un número romano&lt;/b&gt;.</value>
+  </data>
+  <data name="Lista13" xml:space="preserve">
+    <value>El divisor es demasiado grande.</value>
+  </data>
+  <data name="Lista14" xml:space="preserve">
+    <value>El exponente es demasiado grande.</value>
+  </data>
+  <data name="Lista15" xml:space="preserve">
+    <value>Error desconocido.</value>
+  </data>
+  <data name="Lista16" xml:space="preserve">
+    <value>Por favor, informe a tulengua.es@gmail.com con la cifra que ha escrito.</value>
+  </data>
+  <data name="Lista17" xml:space="preserve">
+    <value>Intentaremos solucionarlo pronto.</value>
+  </data>
+  <data name="Lista18" xml:space="preserve">
+    <value>Disculpe las molestias.</value>
+  </data>
+  <data name="Lista19" xml:space="preserve">
+    <value>&lt;b&gt;Los símbolos de monedas (€, £, ¥, etc. ) no están admitidos para este idioma.&lt;/b&gt; Estamos trabajando en ello...</value>
+  </data>
+  <data name="Lista2" xml:space="preserve">
+    <value>Escriba un número sin coma ni punto para los miles o millones:</value>
+  </data>
+  <data name="Lista20" xml:space="preserve">
+    <value>&lt;b&gt;Puede que el número, el exponente o la parte decimal sea demasiado grande.&lt;/b&gt;</value>
+  </data>
+  <data name="Lista21" xml:space="preserve">
+    <value>Escriba cantidades en &lt;b&gt;euros&lt;/b&gt; con el símbolo € o la palabra &lt;i&gt;euros&lt;/i&gt;: </value>
+  </data>
+  <data name="Lista22" xml:space="preserve">
+    <value>Escriba cantidades en &lt;b&gt;pesos&lt;/b&gt; con el símbolo $ o la palabra &lt;i&gt;pesos&lt;/i&gt;: </value>
+  </data>
+  <data name="Lista23" xml:space="preserve">
+    <value>Escriba cantidades en &lt;b&gt;dólares&lt;/b&gt; con el símbolo $ o la palabra &lt;i&gt;dólares&lt;/i&gt;: </value>
+  </data>
+  <data name="Lista3" xml:space="preserve">
+    <value>Los miles o millones se pueden separar con un espacio en blanco:</value>
+  </data>
+  <data name="Lista4" xml:space="preserve">
+    <value>En lo decimales puede usar un punto o una coma:</value>
+  </data>
+  <data name="Lista5" xml:space="preserve">
+    <value>Para escribir fracciones use la barra:</value>
+  </data>
+  <data name="Lista6" xml:space="preserve">
+    <value>Para escribr en notación científica use la E sin espacios:</value>
+  </data>
+  <data name="Lista7" xml:space="preserve">
+    <value>Si es un número romano, escriba en mayúscula todos sus símbolos:</value>
+  </data>
+  <data name="Lista8" xml:space="preserve">
+    <value>Los formatos admitidos para el polaco son los siguientes:</value>
+  </data>
+  <data name="Lista9" xml:space="preserve">
+    <value>El número es demasiado grande.</value>
+  </data>
+  <data name="MultiplicativoTipo" xml:space="preserve">
+    <value>Multiplicativo</value>
+  </data>
+  <data name="Notas" xml:space="preserve">
+    <value>Notas</value>
+  </data>
+  <data name="NumeroRomanoCorrecto" xml:space="preserve">
+    <value>Número romano correcto</value>
+  </data>
+  <data name="NumeroRomanoIncorrecto" xml:space="preserve">
+    <value>Número romano incorrecto</value>
+  </data>
+  <data name="Opciones" xml:space="preserve">
+    <value>Todas las opciones y funciones</value>
+  </data>
+  <data name="OrdinalTipo" xml:space="preserve">
+    <value>Ordinal</value>
+  </data>
+  <data name="Referencias" xml:space="preserve">
+    <value>Referencias</value>
+  </data>
+  <data name="RomanoTipo" xml:space="preserve">
+    <value>Romano</value>
+  </data>
+  <data name="ValorNumerico" xml:space="preserve">
+    <value>Valor numérico</value>
+  </data>
+</root>

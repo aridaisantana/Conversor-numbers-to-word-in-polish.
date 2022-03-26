@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CabeceraNumeroFormateado2" xml:space="preserve">
+    <value>Jak napisać liczbę</value>
+  </data>
+  <data name="CabeceraNumeroFormateado3" xml:space="preserve">
+    <value>po polsku?</value>
+  </data>
+  <data name="CardinalNotas1" xml:space="preserve">
+    <value>Cyfry od zera do dziewięciu są oddawane przez konkretne słowa, a mianowicie zero [0], jeden [1], dwa [2], trzy [3], cztery [4], pięć [5], sześć [6], siedem [7], osiem [8], and dziewięć [9].</value>
+  </data>
+  <data name="CardinalNotas2" xml:space="preserve">
+    <value>Dziesiątki tworzy się, podając cyfrę mnożenia przed odmianą słowa oznaczającego dziesięć (dziesięć, dzieścia, dzieści lub dziesiąt), z wyjątkiem samej dziesiątki: dziesięć [10], dwadzieścia [20], trzydzieści [30], czterdzieści [40], pięćdziesiąt [50], sześćdziesiąt [60], siedemdziesiąt [70], osiemdziesiąt [80], i dziewięćdziesiąt [90].</value>
+  </data>
+  <data name="CardinalNotas3" xml:space="preserve">
+    <value>Dziesiątki tworzy się, zaczynając od jednostki, po której bezpośrednio następuje naście, od na (i) oraz dziesięć (dziesięć): jedenaście [11] (dosł. jeden i dziesięć), dwanaście [12], trzynaście [13], czternaście [14], piętnaście [15], szesnaście [16], siedemnaście [17], osiemnaście [18], i dziewiętnaście [19].</value>
+  </data>
+  <data name="CardinalNotas4" xml:space="preserve">
+    <value>Liczby złożone powyżej dwudziestu tworzy się, zaczynając od dziesiątki, a następnie od jednostki oddzielonej spacją (np.: dwadzieścia jeden [21], pięćdziesiąt trzy [53]).</value>
+  </data>
+  <data name="CardinalNotas5" xml:space="preserve">
+    <value>Setki tworzy się, podając cyfrę mnożnika przed formą słowa oznaczającego sto (ście, sta lub set) bez odstępu, z wyjątkiem stu: sto [100], dwieście [200], trzysta [300], czterysta [400], pięćset [500], sześćset [600], siedemset [700], osiemset [800] i dziewięćset [900].</value>
+  </data>
+  <data name="CardinalNotas6" xml:space="preserve">
+    <value>Tysiące tworzy się, podając cyfrę mnożenia przed formą słowa oznaczającego tysiąc (tysiąc, tysiące lub tysiące) oddzieloną spacją, z wyjątkiem tysiąca: tysiąc [1,000], dwa tysiące [2,000], trzy tysiące [3,000], cztery tysiące [4,000], pięć tysięcy [5,000], sześć tysięcy [6,000], siedem tysięcy [7,000], osiem tysięcy [8,000], i dziewięć tysięcy [9,000].</value>
+  </data>
+  <data name="CardinalNotas7" xml:space="preserve">
+    <value>W języku polskim stosuje się konwencję nazewnictwa w skali długiej.</value>
+  </data>
+  <data name="CardinalTipo" xml:space="preserve">
+    <value>Kardynał</value>
+  </data>
+  <data name="DecimalTipo" xml:space="preserve">
+    <value>Decimal</value>
+  </data>
+  <data name="Ejemplos" xml:space="preserve">
+    <value>Przykład</value>
+  </data>
+  <data name="ERROR" xml:space="preserve">
+    <value>BŁĄD</value>
+  </data>
+  <data name="FraccionarioTipo" xml:space="preserve">
+    <value>Ułamkowa</value>
+  </data>
+  <data name="Lista1" xml:space="preserve">
+    <value>Pokazany jest tekst kardynalny, porządkowy, cząstkowy, mnożnikowy, zbiorowy oraz jego cyfra rzymska i inne... odpowiadające zapisanej liczbie.</value>
+  </data>
+  <data name="Lista10" xml:space="preserve">
+    <value>Licznik jest zbyt duży.</value>
+  </data>
+  <data name="Lista11" xml:space="preserve">
+    <value>Część dziesiętna jest zbyt duża.</value>
+  </data>
+  <data name="Lista12" xml:space="preserve">
+    <value>&lt;b&gt;Nie pisz liczby za pomocą liter, z wyjątkiem cyfry rzymskiej&lt;/b&gt;.</value>
+  </data>
+  <data name="Lista13" xml:space="preserve">
+    <value>Dzielnik jest zbyt duży.</value>
+  </data>
+  <data name="Lista14" xml:space="preserve">
+    <value>Wykładnik jest zbyt duży.</value>
+  </data>
+  <data name="Lista15" xml:space="preserve">
+    <value>Nieznany błąd.</value>
+  </data>
+  <data name="Lista16" xml:space="preserve">
+    <value>Wyślij wiadomość e-mail na adres tulengua.es@gmail.com, podając numer, który wpisałeś.</value>
+  </data>
+  <data name="Lista17" xml:space="preserve">
+    <value>Postaramy się rozwiązać problem tak szybko, jak to możliwe.</value>
+  </data>
+  <data name="Lista18" xml:space="preserve">
+    <value>Przepraszamy za wszelkie niedogodności.</value>
+  </data>
+  <data name="Lista19" xml:space="preserve">
+    <value>Symbole walutowe (€, £, ¥ itd.) nie są obsługiwane w tym języku. Pracujemy nad tym ...</value>
+  </data>
+  <data name="Lista2" xml:space="preserve">
+    <value>Zapisz liczbę bez przecinka lub przecinka dziesiętnego dla tysięcy lub milionów:</value>
+  </data>
+  <data name="Lista20" xml:space="preserve">
+    <value>Liczba, wykładnik lub część dziesiętna mogą być zbyt duże.</value>
+  </data>
+  <data name="Lista21" xml:space="preserve">
+    <value>Kwoty w &lt;b&gt;euro &lt;/b&gt; można zapisywać za pomocą symbolu € lub słowa euro :</value>
+  </data>
+  <data name="Lista22" xml:space="preserve">
+    <value>Kwoty w &lt;b&gt;pesos&lt;/b&gt; można zapisywać za pomocą symbolu $ lub słowa pesos:</value>
+  </data>
+  <data name="Lista23" xml:space="preserve">
+    <value>Kwoty w &lt;b&gt;dolarach&lt;/b&gt; można zapisywać za pomocą symbolu $ lub słowa dólares:</value>
+  </data>
+  <data name="Lista3" xml:space="preserve">
+    <value>Tysiące lub miliony można oddzielić pustym miejscem:</value>
+  </data>
+  <data name="Lista4" xml:space="preserve">
+    <value>W zapisie dziesiętnym można użyć przecinka lub kropki:</value>
+  </data>
+  <data name="Lista5" xml:space="preserve">
+    <value>Ułamki można zapisywać za pomocą tabliczki:</value>
+  </data>
+  <data name="Lista6" xml:space="preserve">
+    <value>W notacji naukowej można używać litery E bez spacji:</value>
+  </data>
+  <data name="Lista7" xml:space="preserve">
+    <value>W przypadku cyfr rzymskich wszystkie symbole można pisać wielką literą:</value>
+  </data>
+  <data name="Lista9" xml:space="preserve">
+    <value>Liczba ta jest zbyt duża.</value>
+  </data>
+  <data name="MultiplicativoTipo" xml:space="preserve">
+    <value>Multiplikatywny</value>
+  </data>
+  <data name="Notas" xml:space="preserve">
+    <value>Uwagi</value>
+  </data>
+  <data name="NumeroRomanoCorrecto" xml:space="preserve">
+    <value>Prawidłowa cyfra rzymska</value>
+  </data>
+  <data name="NumeroRomanoIncorrecto" xml:space="preserve">
+    <value>Nieprawidłowa cyfra rzymska</value>
+  </data>
+  <data name="Opciones" xml:space="preserve">
+    <value>Wszystkie opcje</value>
+  </data>
+  <data name="OrdinalTipo" xml:space="preserve">
+    <value>Strona porządkowa</value>
+  </data>
+  <data name="Referencias" xml:space="preserve">
+    <value>Odnośnik</value>
+  </data>
+  <data name="RomanoTipo" xml:space="preserve">
+    <value>Roman</value>
+  </data>
+  <data name="ValorNumerico" xml:space="preserve">
+    <value>Wartość liczbowa</value>
+  </data>
+</root>

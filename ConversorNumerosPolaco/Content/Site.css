@@ -1,0 +1,9 @@
+﻿body {
+    background: url('morskieoko.png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.img-brand{
+    width: 10%;
+    height: 10%;
+}
